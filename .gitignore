@@ -17,3 +17,4 @@ app/build
 app/src/test
 app/src/androidTest
 .cxx
+.idea/
