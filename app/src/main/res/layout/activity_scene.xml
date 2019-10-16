@@ -18,28 +18,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000"
-        android:fillViewport="true">
+        android:fadeScrollbars="false"
+        android:fillViewport="false">
 
-        <ImageView
-            android:id="@+id/scene_image"
+        <RelativeLayout
+            android:id="@+id/scene_relative_layout"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/sceneimage"
-            android:scaleType="center" />
-    </HorizontalScrollView>
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@id/horizontalScrollView"
-        android:layout_alignBottom="@id/horizontalScrollView"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/pointblue" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/pointblue" />
+
+            <ImageView
+                android:id="@+id/scene_image"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/sceneimage"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>
