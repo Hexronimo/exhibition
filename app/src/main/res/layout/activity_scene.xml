@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scenelayout"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:screenOrientation="landscape"
@@ -19,22 +19,18 @@
         android:layout_height="match_parent"
         android:background="#000000"
         android:fadeScrollbars="false"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        android:screenOrientation="landscape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:id="@+id/scene_relative_layout"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/pointblue" />
+            android:layout_height="match_parent"
+            android:screenOrientation="landscape">
 
             <ImageView
                 android:id="@+id/scene_image"
@@ -46,4 +42,4 @@
         </RelativeLayout>
     </HorizontalScrollView>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

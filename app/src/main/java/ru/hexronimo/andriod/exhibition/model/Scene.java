@@ -1,4 +1,7 @@
-package model;
+package ru.hexronimo.andriod.exhibition.model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Scene {
 
@@ -10,7 +13,10 @@ public class Scene {
     private String adminTitle;
     private String adminDesc;
 
+    private List<Point> points;
+
     public Scene(String image, String title, String adminTitle, String adminDesc) {
+        points = new ArrayList<>();
         if(image != null) {
             this.imagePath = image;
         } else {
@@ -40,5 +46,17 @@ public class Scene {
     public void LinkLeftRight(int leftSceneId, int rightSceneId) {
         this.left = leftSceneId;
         this.right = rightSceneId;
+    }
+
+    public List<Point> getPoints() {
+        return points;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
+
+    public void addPoint(Point point){
+        this.points.add(point);
     }
 }

@@ -1,4 +1,4 @@
-package model;
+package ru.hexronimo.andriod.exhibition.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +11,7 @@ public class Exhibition {
 
     //Test
     public Exhibition(String name){
+        //TODO if it deserialize and got nothing it generates demo
         this.name = name;
         this.generateDemo();
     }
@@ -18,6 +19,13 @@ public class Exhibition {
     private void generateDemo () {
         if (exhibition.size() == 0) {
             Scene demoScene = new Scene(null, "Демонстрационная сцена", "Демонстрационная сцена", "Демонстрационная сцена исчезнет как только в выставку будут добавлены реальные сцены");
+            demoScene.addPoint(new Point(1452, 617));
+            demoScene.addPoint(new Point(820, 951));
+            demoScene.addPoint(new Point(2060, 969));
+            demoScene.addPoint(new Point(1276, 414));
+            demoScene.addPoint(new Point(2510, 618));
+            demoScene.addPoint(new Point(283, 807));
+            demoScene.addPoint(new Point(1291, 1053));
             exhibition.put(0, demoScene);
         }
     }
