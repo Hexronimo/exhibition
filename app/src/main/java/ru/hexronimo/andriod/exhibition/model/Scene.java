@@ -1,9 +1,10 @@
 package ru.hexronimo.andriod.exhibition.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scene {
+public class Scene implements Serializable {
 
     private int id;
     private String imagePath;
@@ -58,5 +59,6 @@ public class Scene {
 
     public void addPoint(Point point){
         this.points.add(point);
+
     }
 }

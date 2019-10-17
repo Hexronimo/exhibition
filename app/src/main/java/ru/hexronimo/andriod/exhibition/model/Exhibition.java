@@ -19,13 +19,15 @@ public class Exhibition {
     private void generateDemo () {
         if (exhibition.size() == 0) {
             Scene demoScene = new Scene(null, "Демонстрационная сцена", "Демонстрационная сцена", "Демонстрационная сцена исчезнет как только в выставку будут добавлены реальные сцены");
-            demoScene.addPoint(new Point(1452, 617));
-            demoScene.addPoint(new Point(820, 951));
-            demoScene.addPoint(new Point(2060, 969));
-            demoScene.addPoint(new Point(1276, 414));
-            demoScene.addPoint(new Point(2510, 618));
-            demoScene.addPoint(new Point(283, 807));
-            demoScene.addPoint(new Point(1291, 1053));
+
+            // because those sizes where first taken on Nexus 10 which sceen size is 2560x1600 and image was near 3080x1450 on it
+            demoScene.addPoint(new Point(1452/3080f, 617/1450f));
+            demoScene.addPoint(new Point(820/3080f, 951/1450f));
+            demoScene.addPoint(new Point(2060/3080f, 969/1450f));
+            demoScene.addPoint(new Point(1276/3080f, 414/1450f));
+            demoScene.addPoint(new Point(2510/3080f, 618/1450f));
+            demoScene.addPoint(new Point(283/3080f, 807/1450f));
+            demoScene.addPoint(new Point(1291/3080f, 1053/1450f));
             exhibition.put(0, demoScene);
         }
     }

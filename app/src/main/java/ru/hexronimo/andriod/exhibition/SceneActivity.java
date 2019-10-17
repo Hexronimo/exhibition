@@ -17,7 +17,7 @@ import ru.hexronimo.andriod.exhibition.model.Point;
 import ru.hexronimo.andriod.exhibition.model.Scene;
 
 
-public class SceneActivity extends AppCompatActivity implements View.OnTouchListener {
+public class SceneActivity extends AppCompatActivity {
     int prevX, prevY;
     private static int pointSize = 0;
 
@@ -34,7 +34,7 @@ public class SceneActivity extends AppCompatActivity implements View.OnTouchList
     }
 
 
-    @Override
+/*    @Override
     public boolean onTouch(View v, MotionEvent event) {
         RelativeLayout.LayoutParams par=(RelativeLayout.LayoutParams)v.getLayoutParams();
         HorizontalScrollView horizontalScrollView = (HorizontalScrollView)findViewById(R.id.horizontalScrollView);
@@ -60,46 +60,50 @@ public class SceneActivity extends AppCompatActivity implements View.OnTouchList
         }
         horizontalScrollView.requestDisallowInterceptTouchEvent(false);
         return false;
-    }
+    }*/
 
     // declare the layout listener
     class MyGlobalListenerClass implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
             View v = (View) findViewById(R.id.scene_image);
-            pointSize = v.getHeight()/10;
+            int imageHeight =  v.getHeight();
+            int imageWidth =  v.getWidth();
+            pointSize = imageHeight/12;
             RelativeLayout rl = findViewById(R.id.scene_relative_layout);
 
             //my classes
             Exhibition exhibition = new Exhibition("DEMO");
             Scene scene = exhibition.getLeft();
-
+            PointOnTouchListener listener = new PointOnTouchListener();
             int i = 0;
             for (Point point : scene.getPoints()) {
                 Button btn = new Button(getApplicationContext());
                 btn.setId(i);
-                final int id_ = btn.getId();
+
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pointSize, pointSize);
-                btn.setBackgroundResource(R.drawable.pointblue);
-                params.setMargins((int)point.getMarginX(), (int)point.getMarginY(),0,0);
+
+                params.setMargins((int)(imageWidth*point.getMarginX()), (int)(imageHeight*point.getMarginY()),0,0);
                 btn.setLayoutParams(params);
+                btn.setBackgroundResource(R.drawable.pointbluepressed);
+                btn.setOnTouchListener(listener);
                 rl.addView(btn);
                 i++;
 
-/*            btn1 = ((Button) findViewById(id_));
+            /*
+            btn1 = ((Button) findViewById(id_));
             btn1.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),
-                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                            .show();
-        }*/
+            public void onClick(View view) {
+            Toast.makeText(view.getContext(),
+            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
+            .show();
+            }
+            */
 
             }
             // does it really remove listener? Anyway without it app become very slow,
             // probably adding new Points on every layout related event, even on scrolling
             v.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-
         }
     }
 
