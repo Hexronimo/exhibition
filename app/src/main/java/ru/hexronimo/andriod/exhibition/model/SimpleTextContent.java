@@ -2,7 +2,8 @@ package ru.hexronimo.andriod.exhibition.model;
 
 import java.io.Serializable;
 
-public class SimpleTextContent implements Content, Serializable {
+@SuppressWarnings("serial")
+public class SimpleTextContent implements Content {
 
     private String title;
     private String text;

@@ -20,6 +20,7 @@ import ru.hexronimo.andriod.exhibition.model.Scene;
 public class SceneActivity extends AppCompatActivity {
     int prevX, prevY;
     private static int pointSize = 0;
+    private static Exhibition exhibition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class SceneActivity extends AppCompatActivity {
     class MyGlobalListenerClass implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
+            exhibition = new Exhibition("DEMO");
             View v = (View) findViewById(R.id.scene_image);
             int imageHeight =  v.getHeight();
             int imageWidth =  v.getWidth();
@@ -73,8 +75,9 @@ public class SceneActivity extends AppCompatActivity {
             RelativeLayout rl = findViewById(R.id.scene_relative_layout);
 
             //my classes
-            Exhibition exhibition = new Exhibition("DEMO");
+
             Scene scene = exhibition.getLeft();
+            System.out.println(scene);
             PointOnTouchListener listener = new PointOnTouchListener();
             int i = 0;
             for (Point point : scene.getPoints()) {
@@ -86,19 +89,10 @@ public class SceneActivity extends AppCompatActivity {
                 params.setMargins((int)(imageWidth*point.getMarginX()), (int)(imageHeight*point.getMarginY()),0,0);
                 btn.setLayoutParams(params);
                 btn.setBackgroundResource(R.drawable.pointbluepressed);
+                listener.setPoint(point);
                 btn.setOnTouchListener(listener);
                 rl.addView(btn);
                 i++;
-
-            /*
-            btn1 = ((Button) findViewById(id_));
-            btn1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            Toast.makeText(view.getContext(),
-            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-            .show();
-            }
-            */
 
             }
             // does it really remove listener? Anyway without it app become very slow,

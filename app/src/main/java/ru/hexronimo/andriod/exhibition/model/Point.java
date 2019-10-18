@@ -1,9 +1,11 @@
 package ru.hexronimo.andriod.exhibition.model;
 
-public class Point {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Point implements Serializable {
     float marginX;
     float marginY;
-    int contentId;
     PointIcon pointIcon;
     Content content;
 
@@ -13,8 +15,17 @@ public class Point {
         this.marginY = y;
     }
 
-    public void loadContent() {
+    public Point(float x, float y, Content content){
+        this.marginX = x;
+        this.marginY = y;
+        this.content = content;
+        if (content.getClass().isInstance(SimpleTextContent.class)) {
+            pointIcon = PointIcon.TEXT;
+        }
+    }
 
+    public void loadContent() {
+    //TODO lazy loading on request
     }
 
     public Content getContent(){

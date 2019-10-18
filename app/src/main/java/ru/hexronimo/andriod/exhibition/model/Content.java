@@ -1,6 +1,8 @@
 package ru.hexronimo.andriod.exhibition.model;
 
-public interface Content {
+import java.io.Serializable;
+
+public interface Content extends Serializable{
 
     public String getTextContent();
     public void setTextContent(String text);

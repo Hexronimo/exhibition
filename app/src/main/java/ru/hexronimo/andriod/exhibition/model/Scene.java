@@ -1,5 +1,11 @@
 package ru.hexronimo.andriod.exhibition.model;
 
+import android.os.Environment;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +20,13 @@ public class Scene implements Serializable {
     private String adminTitle;
     private String adminDesc;
 
+
     private List<Point> points;
 
     public Scene(String image, String title, String adminTitle, String adminDesc) {
         points = new ArrayList<>();
         if(image != null) {
             this.imagePath = image;
-        } else {
-            this.imagePath = "@drawable/testscene";
         }
         this.title = title;
         if (adminTitle != null && adminTitle.trim().length() > 0) {
@@ -59,6 +64,13 @@ public class Scene implements Serializable {
 
     public void addPoint(Point point){
         this.points.add(point);
+    }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
