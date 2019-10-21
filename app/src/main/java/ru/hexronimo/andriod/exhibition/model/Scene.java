@@ -16,6 +16,7 @@ public class Scene implements Serializable {
     private String imagePath;
     private Integer left;
     private Integer right;
+    private String info;
     private String title;
     private String adminTitle;
     private String adminDesc;
@@ -72,5 +73,13 @@ public class Scene implements Serializable {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

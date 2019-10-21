@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
 import ru.hexronimo.andriod.exhibition.model.Point;
@@ -20,7 +22,7 @@ import ru.hexronimo.andriod.exhibition.model.Scene;
 public class SceneActivity extends AppCompatActivity {
     int prevX, prevY;
     private static int pointSize = 0;
-    private static Exhibition exhibition;
+    private static Exhibition exhibition = new Exhibition("DEMO");;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,19 @@ public class SceneActivity extends AppCompatActivity {
         //adding actual jpg picture to ImageView which already made in XML
         imageView.setImageResource(R.drawable.testscene);
         imageView.getViewTreeObserver().addOnGlobalLayoutListener(new MyGlobalListenerClass());
+
+        TextView infoView = findViewById(R.id.scene_info);
+        infoView.setText(exhibition.getLeft().getInfo());
+    }
+
+    public void onClick(View v) {
+        ScrollView scrollView = findViewById(R.id.scene_parent_info);
+        if (scrollView.getVisibility() == View.GONE){
+            scrollView.setVisibility(View.VISIBLE);
+        } else {
+            scrollView.setVisibility(View.GONE);
+        }
+
     }
 
 
@@ -67,7 +82,6 @@ public class SceneActivity extends AppCompatActivity {
     class MyGlobalListenerClass implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {
-            exhibition = new Exhibition("DEMO");
             View v = (View) findViewById(R.id.scene_image);
             int imageHeight =  v.getHeight();
             int imageWidth =  v.getWidth();
@@ -78,9 +92,10 @@ public class SceneActivity extends AppCompatActivity {
 
             Scene scene = exhibition.getLeft();
             System.out.println(scene);
-            PointOnTouchListener listener = new PointOnTouchListener();
+
             int i = 0;
             for (Point point : scene.getPoints()) {
+
                 Button btn = new Button(getApplicationContext());
                 btn.setId(i);
 
@@ -89,6 +104,7 @@ public class SceneActivity extends AppCompatActivity {
                 params.setMargins((int)(imageWidth*point.getMarginX()), (int)(imageHeight*point.getMarginY()),0,0);
                 btn.setLayoutParams(params);
                 btn.setBackgroundResource(R.drawable.pointbluepressed);
+                PointOnTouchListener listener = new PointOnTouchListener();
                 listener.setPoint(point);
                 btn.setOnTouchListener(listener);
                 rl.addView(btn);

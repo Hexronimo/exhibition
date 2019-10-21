@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Exhibition</string>
-    <string name="image_of_scene">Image of scene</string>
-    <string name="title_activity_scene_view">SceneView</string>
-    <string name="sceneimage">Scene image</string>
+    <string name="back">Back</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="textview">Audio</string>
 </resources>

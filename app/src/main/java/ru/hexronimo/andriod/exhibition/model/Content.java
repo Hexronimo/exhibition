@@ -1,5 +1,7 @@
 package ru.hexronimo.andriod.exhibition.model;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public interface Content extends Serializable{
@@ -8,4 +10,7 @@ public interface Content extends Serializable{
     public void setTextContent(String text);
     public void setTitle(String title);
     public String getTitle();
+    public Uri getImagePath();
+    public Uri getMediaPath();
+    public Boolean isAutoPlay();
 }

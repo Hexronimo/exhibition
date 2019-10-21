@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".ContentActivity"></activity>
+        <activity android:name=".ContentMediaActivity" />
         <activity android:name=".SceneActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -20,4 +21,6 @@
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>
