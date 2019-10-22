@@ -51,7 +51,7 @@ public class DemoScene {
 
         Uri media1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/audio_sample");
         Uri image2 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/drawable/chandelure");
-        Content content3 = new SimpleMediaContent(media1, image2, true);
+        Content content3 = new SimpleMediaContent(media1, image2, false);
         content3.setTitle("Some audio");
 
         content3.setTextContent("You may add speech or music to content, image and text can be added too, also you can set autoplay (start playing after open), otherwise audio will play after pressing a button (default).");
