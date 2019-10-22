@@ -10,7 +10,10 @@ public interface Content extends Serializable{
     public void setTextContent(String text);
     public void setTitle(String title);
     public String getTitle();
+
     public Uri getImagePath();
-    public Uri getMediaPath();
+    public Uri getAudioPath();
+    public Uri getVideoPath();
+
     public Boolean isAutoPlay();
 }

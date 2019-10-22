@@ -6,8 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.Serializable;
-
 import ru.hexronimo.andriod.exhibition.model.Point;
 
 public class PointOnTouchListener implements View.OnTouchListener {
@@ -32,7 +30,7 @@ public class PointOnTouchListener implements View.OnTouchListener {
                     Context c = v.getContext();
                     Intent intent;
                     if (null != point.getContent().getMediaPath()) {
-                        intent = new Intent(c, ContentMediaActivity.class);
+                        intent = new Intent(c, ContentAudioActivity.class);
                     } else {
                         intent = new Intent(c, ContentActivity.class);
                     }

@@ -1,9 +1,6 @@
 package ru.hexronimo.andriod.exhibition.model;
 
-import android.app.Application;
 import android.net.Uri;
-
-import java.io.File;
 
 import ru.hexronimo.andriod.exhibition.R;
 
@@ -51,13 +48,18 @@ public class DemoScene {
 
         Uri media1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/audio_sample");
         Uri image2 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/drawable/chandelure");
-        Content content3 = new SimpleMediaContent(media1, image2, false);
+        Content content3 = new SimpleAudioContent(media1, image2, false);
         content3.setTitle("Some audio");
 
         content3.setTextContent("You may add speech or music to content, image and text can be added too, also you can set autoplay (start playing after open), otherwise audio will play after pressing a button (default).");
 
+        Uri video1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/video_sample");
+        Content content4 = new SimpleVideoContent(video1);
+        content4.setTitle("Simple video");
+        content4.setTextContent("You can set video content, you can't use both video, audio and image in this kind of Content frame tho.");
+
         demoScene.addPoint(new Point(1452/3080f, 617/1450f));
-        demoScene.addPoint(new Point(820/3080f, 951/1450f));
+        demoScene.addPoint(new Point(820/3080f, 951/1450f, content4));
         demoScene.addPoint(new Point(2060/3080f, 969/1450f, content));
         demoScene.addPoint(new Point(1276/3080f, 414/1450f, content3));
         demoScene.addPoint(new Point(2510/3080f, 618/1450f, content2));

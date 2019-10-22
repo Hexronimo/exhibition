@@ -40,8 +40,15 @@ public class SimpleImageContent implements Content {
         this.imgPath = imgPath.toString();
     }
 
+
+    // interface default
     @Override
-    public Uri getMediaPath() {
+    public Uri getAudioPath() {
+        return null;
+    }
+
+    @Override
+    public Uri getVideoPath() {
         return null;
     }
 

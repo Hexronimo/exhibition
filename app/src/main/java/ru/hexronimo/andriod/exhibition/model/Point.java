@@ -25,7 +25,7 @@ public class Point implements Serializable {
     }
 
     public void loadContent() {
-    //TODO lazy loading on request
+    //TODO lazy loading (deserialize) on request
     }
 
     public Content getContent(){

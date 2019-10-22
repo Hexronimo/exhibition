@@ -30,13 +30,20 @@ public class SimpleTextContent implements Content {
         return this.title;
     }
 
+
+    // interface default
     @Override
     public Uri getImagePath(){
         return null;
     }
 
     @Override
-    public Uri getMediaPath() {
+    public Uri getAudioPath() {
+        return null;
+    }
+
+    @Override
+    public Uri getVideoPath() {
         return null;
     }
 
