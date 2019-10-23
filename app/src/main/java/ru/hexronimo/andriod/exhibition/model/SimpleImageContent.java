@@ -6,38 +6,35 @@ public class SimpleImageContent implements Content {
 
     private String title;
     private String text;
-    private String imgPath;
+    private String imagePath;
 
     public SimpleImageContent(Uri uri){
-        this.imgPath = uri.toString();
+        this.imagePath = uri.toString();
     }
 
     @Override
     public String getTextContent() {
         return this.text;
     }
-
     @Override
     public void setTextContent(String text) {
         this.text = text;
     }
-
     @Override
     public void setTitle(String title) {
         this.title = title;
     }
-
     @Override
     public String getTitle() {
         return this.title;
     }
-
+    @Override
     public Uri getImagePath() {
-        return Uri.parse(imgPath);
+        return Uri.parse(imagePath);
     }
 
     public void setImagePath(Uri imgPath) {
-        this.imgPath = imgPath.toString();
+        this.imagePath = imgPath.toString();
     }
 
 
@@ -46,14 +43,10 @@ public class SimpleImageContent implements Content {
     public Uri getAudioPath() {
         return null;
     }
-
     @Override
     public Uri getVideoPath() {
         return null;
     }
-
     @Override
-    public Boolean isAutoPlay() {
-        return null;
-    }
+    public Boolean isAutoPlay() { return null; }
 }

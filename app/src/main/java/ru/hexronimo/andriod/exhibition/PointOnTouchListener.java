@@ -29,7 +29,9 @@ public class PointOnTouchListener implements View.OnTouchListener {
                 if (null != point.getContent()) {
                     Context c = v.getContext();
                     Intent intent;
-                    if (null != point.getContent().getMediaPath()) {
+                    if (null != point.getContent().getVideoPath()) {
+                        intent = new Intent(c, ContentVideoActivity.class);
+                    } else if (null != point.getContent().getAudioPath()) {
                         intent = new Intent(c, ContentAudioActivity.class);
                     } else {
                         intent = new Intent(c, ContentActivity.class);

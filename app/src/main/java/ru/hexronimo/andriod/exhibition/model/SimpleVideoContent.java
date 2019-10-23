@@ -8,14 +8,11 @@ public class SimpleVideoContent implements Content {
     private String title;
     private String text;
     private String mediaPath;
-    private boolean autoPlay = false;
+    private boolean autoplay = false;
 
-    public SimpleVideoContent(Uri media){
-        this.mediaPath = media.toString();
-    }
     public SimpleVideoContent(Uri media, boolean autoplay){
         this.mediaPath = media.toString();
-        this.autoPlay = autoplay;
+        this.autoplay = autoplay;
     }
 
     @Override
@@ -38,6 +35,7 @@ public class SimpleVideoContent implements Content {
         return this.title;
     }
 
+    @Override
     public Uri getVideoPath() {
         return Uri.parse(mediaPath);
     }
@@ -46,8 +44,9 @@ public class SimpleVideoContent implements Content {
         this.mediaPath = mediaPath.toString();
     }
 
+    @Override
     public Boolean isAutoPlay() {
-        return autoPlay;
+        return autoplay;
     }
 
     // interface default

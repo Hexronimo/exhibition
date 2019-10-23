@@ -54,7 +54,7 @@ public class DemoScene {
         content3.setTextContent("You may add speech or music to content, image and text can be added too, also you can set autoplay (start playing after open), otherwise audio will play after pressing a button (default).");
 
         Uri video1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/video_sample");
-        Content content4 = new SimpleVideoContent(video1);
+        Content content4 = new SimpleVideoContent(video1, true);
         content4.setTitle("Simple video");
         content4.setTextContent("You can set video content, you can't use both video, audio and image in this kind of Content frame tho.");
 
