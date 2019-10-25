@@ -16,7 +16,7 @@ public class DemoScene {
         Content content = new SimpleTextContent();
         Content content1 = new SimpleTextContent();
 
-        content.setTitle("Simple unformated text");
+        content.setTitle("Unformatted text");
         content1.setTitle("Simple Html and poetry");
 
 
@@ -44,19 +44,28 @@ public class DemoScene {
         int image1ID = R.drawable.demo01;
         Uri image1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/drawable/demo01");
         Content content2 = new SimpleImageContent(image1);
-        content2.setTextContent("Their love was so deep...");
+        content2.setTextContent("An image (jpg or png with transparency) can be placed as content. You still can add any text under it. " +
+                "Pay attention to image size, before uploading you better scale it by yourself according to your tablet's screen size.");
 
         Uri media1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/audio_sample");
-        Uri image2 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/drawable/chandelure");
+        Uri image2 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/drawable/audio_image");
         Content content3 = new SimpleAudioContent(media1, image2, false);
-        content3.setTitle("Some audio");
+        content3.setTitle("Audio file");
 
-        content3.setTextContent("You may add speech or music to content, image and text can be added too, also you can set autoplay (start playing after open), otherwise audio will play after pressing a button (default).");
+        content3.setTextContent("You can add speech or music, image and text can be added along with it.");
 
         Uri video1 = Uri.parse("android.resource://" + R.class.getPackage().getName()+"/raw/video_sample");
-        Content content4 = new SimpleVideoContent(video1, true);
+        Content content4 = new SimpleVideoContent(video1, false);
         content4.setTitle("Simple video");
-        content4.setTextContent("You can set video content, you can't use both video, audio and image in this kind of Content frame tho.");
+        content4.setTextContent("<resources>" +
+                "Video by <a href='https://www.pexels.com/@kml-1179532?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels'>KML</a> from Pexels<br>" +
+                "<p>Android currently supports the following video formats:<br>" +
+                "    H.263<br>" +
+                "    H.264 AVC<br>" +
+                "    MPEG-4 SP<br>" +
+                "    VP8</p>" +
+                "</resources>"
+        );
 
         demoScene.addPoint(new Point(1452/3080f, 617/1450f));
         demoScene.addPoint(new Point(820/3080f, 951/1450f, content4));

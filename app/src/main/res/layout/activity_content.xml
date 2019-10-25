@@ -10,10 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="30dp"
-        android:paddingLeft="30dp"
         android:paddingTop="10dp"
         android:paddingEnd="30dp"
-        android:paddingRight="30dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,10 +26,10 @@
                 android:id="@+id/button3"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
+                android:layout_marginRight="5dp"
                 android:width="50dp"
                 android:background="@drawable/arrow_left"
-                android:onClick="onClick"
-                android:paddingRight="10dp" />
+                android:onClick="onClick" />
 
             <TextView
                 android:id="@+id/textView"
@@ -40,7 +38,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:onClick="onClick"
-                android:paddingLeft="10dp"
+                android:paddingLeft="5dp"
                 android:text="@string/back"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -51,8 +49,8 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:scrollbarStyle="outsideOverlay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +58,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -70,16 +69,18 @@
 
             <TextView
                 android:id="@+id/content_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/content_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:scaleType="centerInside"
                 app:layout_constraintBottom_toTopOf="@+id/content_body"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,14 +89,15 @@
 
             <TextView
                 android:id="@+id/content_body"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="80dp"
                 android:justificationMode="inter_word"
-                android:maxWidth="800dp"
                 android:paddingTop="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="18sp"
-                app:lineHeight="30dp" />
+                app:lineHeight="30dp"
+                tools:targetApi="o" />
 
         </LinearLayout>
     </ScrollView>

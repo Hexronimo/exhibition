@@ -68,6 +68,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -78,7 +79,7 @@
 
             <TextView
                 android:id="@+id/content_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
                 android:textSize="30sp"
@@ -128,8 +129,9 @@
                 android:id="@+id/content_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxWidth="600dp"
-                android:scaleType="centerInside"
+                android:layout_marginTop="15dp"
+                android:maxWidth="800dp"
+                android:scaleType="fitStart"
                 app:layout_constraintBottom_toTopOf="@+id/content_body"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +139,7 @@
 
             <TextView
                 android:id="@+id/content_body"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:justificationMode="inter_word"

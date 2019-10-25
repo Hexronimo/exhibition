@@ -1,13 +1,18 @@
 package ru.hexronimo.andriod.exhibition;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,6 +37,14 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
 
+
+
+
+    }
+
+    public void onResume(){
+
+        super.onResume();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), content.getAudioPath());
 
         final SeekBar seekbar = findViewById(R.id.seekBar);
@@ -43,8 +56,6 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
 
         seekbar.setOnSeekBarChangeListener(new MySeekBarListener());
-
-
         if (content.getTitle() != null) title.setText(content.getTitle());
         if (content.getTextContent() != null) body.setText(Html.fromHtml(content.getTextContent()));
         if (content.getImagePath() != null) imageView.setImageURI(content.getImagePath());
@@ -56,7 +67,7 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void run() {
                 if (mediaPlayer != null) {
-                    seekbar.setProgress(0);
+                    seekbar.setProgress(mediaPlayer.getCurrentPosition());
                 }
                 mHandler.postDelayed(this, 1000);
             }
@@ -67,7 +78,6 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
             playPosition = true;
             playStop.setText(R.string.pause);
         }
-
 
     }
 

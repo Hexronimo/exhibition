@@ -37,7 +37,6 @@ public class Exhibition {
     // (it will be the scene which have no left link to other scene, but have only right)
     public Scene getLeft(){
         //TODO add scene.pointsCount() != 0 to if
-        System.out.println("EMPTY OR NOT " + exhibition.size());
         Scene ifNoRightSceneFound = null;
         for (Scene scene: exhibition.values()){
             if (ifNoRightSceneFound == null) ifNoRightSceneFound = scene;
