@@ -37,14 +37,21 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
 
+        display.getSize(size);
+        int width = size.x;
 
+        int globalwidth;
+        if (width > 2000) globalwidth = width/3*2;
+        else if (width < 1000) globalwidth = width;
+        else globalwidth = width/4*3;
 
-    }
+        LinearLayout linearLayout = findViewById(R.id.linear_for_all);
+        ViewGroup.LayoutParams params = linearLayout.getLayoutParams();
+        params.width = globalwidth;
 
-    public void onResume(){
-
-        super.onResume();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), content.getAudioPath());
 
         final SeekBar seekbar = findViewById(R.id.seekBar);
@@ -67,7 +74,8 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void run() {
                 if (mediaPlayer != null) {
-                    seekbar.setProgress(mediaPlayer.getCurrentPosition());
+                    int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                    seekbar.setProgress(mCurrentPosition);
                 }
                 mHandler.postDelayed(this, 1000);
             }
@@ -80,6 +88,7 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
         }
 
     }
+
 
     public void onClick(View v) {
         if (playPosition == false) {        // not playing
@@ -104,7 +113,6 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
     public void onClickClose(View v) {
         content = null;
-        mediaPlayer.stop();
         mediaPlayer.release();
 
         ContentAudioActivity.this.finish();

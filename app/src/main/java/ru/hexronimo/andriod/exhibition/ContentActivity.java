@@ -27,6 +27,7 @@ public class ContentActivity extends AppCompatActivity {
         Intent i = getIntent();
         content = (Content)i.getSerializableExtra("content");
 
+        // change screen size
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
 

@@ -1,10 +1,12 @@
 package ru.hexronimo.andriod.exhibition;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -26,8 +28,6 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
 
     private static Content content;
     private Handler handler = new Handler();
-    private int videoWidth;
-    private int videoHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,21 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
 
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+
+        display.getSize(size);
+        int width = size.x;
+
+        int globalwidth;
+        if (width > 2000) globalwidth = width/3*2;
+        else if (width < 1000) globalwidth = width;
+        else globalwidth = width/4*3;
+
+        LinearLayout linearLayout = findViewById(R.id.linear_for_all);
+        ViewGroup.LayoutParams params = linearLayout.getLayoutParams();
+        params.width = globalwidth;
 
 
         final MediaController mediaController = new MediaController(this, false);
