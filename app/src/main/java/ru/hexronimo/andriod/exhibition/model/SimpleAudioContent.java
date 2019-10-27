@@ -10,12 +10,16 @@ public class SimpleAudioContent implements Content {
     private String imgPath;
     private String mediaPath;
     private boolean autoPlay;
+    private int layout;
 
-    public SimpleAudioContent(Uri media, Uri image, boolean autoplay){
+    public SimpleAudioContent(int layout, Uri media, Uri image, boolean autoplay){
         this.mediaPath = media.toString();
         if (image != null && !"".equals(image)) this.imgPath = image.toString();
         this.autoPlay = autoplay;
+        this.layout = layout;
     }
+
+
     @Override
     public String getTextContent() {
         return this.text;
@@ -56,6 +60,11 @@ public class SimpleAudioContent implements Content {
     @Override
     public Boolean isAutoPlay() {
         return autoPlay;
+    }
+
+    @Override
+    public int getLayout() {
+        return layout;
     }
 
     // interface default

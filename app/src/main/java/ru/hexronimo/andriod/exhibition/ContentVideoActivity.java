@@ -2,6 +2,7 @@ package ru.hexronimo.andriod.exhibition;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -32,10 +34,11 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_video);
+
 
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
+        setContentView(content.getLayout());
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -43,7 +46,7 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
         display.getSize(size);
         int width = size.x;
 
-        int globalwidth;
+        final int globalwidth;
         if (width > 2000) globalwidth = width/3*2;
         else if (width < 1000) globalwidth = width;
         else globalwidth = width/4*3;
@@ -60,19 +63,30 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
 
         videoView.setMediaController(mediaController);
         videoView.setVideoURI(content.getVideoPath());
-        mediaController.setAnchorView(videoView);
-
+        mediaController.setAnchorView(findViewById(R.id.rel_video_view));
         ScrollView scrollView = findViewById(R.id.scroll_video);
+
 
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
 
             @Override
             public void onScrollChanged() {
                 mediaController.hide();
-                mediaController.show(7000);
             }
         });
 
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(final MediaPlayer mp) {
+                int width = mp.getVideoWidth();
+                int height = mp.getVideoHeight();
+
+                RelativeLayout.LayoutParams vparams = (RelativeLayout.LayoutParams)videoView.getLayoutParams();
+                vparams.width = globalwidth;
+                vparams.height = (int)(globalwidth/(float)width * height);
+                styleMediaController(mediaController);
+            }
+        });
 
         if (content.isAutoPlay()) videoView.start();
         else {
@@ -83,7 +97,7 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
         handler.postDelayed(
                 new Runnable() {
                     public void run() {
-                        mediaController.show(7000);
+                        mediaController.show(6000);
                     }},
                 100);
 
@@ -95,6 +109,24 @@ public class ContentVideoActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         content = null;
         ContentVideoActivity.this.finish();
+    }
+
+    private void styleMediaController(View view) {
+        if (view instanceof MediaController) {
+            MediaController v = (MediaController) view;
+            for(int i = 0; i < v.getChildCount(); i++) {
+                styleMediaController(v.getChildAt(i));
+            }
+        } else
+        if (view instanceof LinearLayout) {
+            LinearLayout ll = (LinearLayout) view;
+            for(int i = 0; i < ll.getChildCount(); i++) {
+                styleMediaController(ll.getChildAt(i));
+            }
+        } else if (view instanceof SeekBar) {
+            ((SeekBar) view).getProgressDrawable().setColorFilter(getResources().getColor(R.color.mainactive), PorterDuff.Mode.SRC_ATOP);
+            ((SeekBar) view).getThumb().setColorFilter(getResources().getColor(R.color.mainactivesec), PorterDuff.Mode.SRC_ATOP);
+        }
     }
 
 }

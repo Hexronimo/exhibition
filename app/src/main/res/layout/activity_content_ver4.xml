@@ -4,118 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContentAudioActivity">
+    android:background="@color/mainpanel"
+    tools:context=".ContentActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/mainbg"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:scrollbarStyle="outsideOverlay"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView4"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scrollbarSize="10dp"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linear_for_all"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/content_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="15dp"
-                android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:adjustViewBounds="false"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
 
-                <Button
-                    android:id="@+id/play_pause"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill_horizontal"
-                    android:background="@color/mainactivesec"
-                    android:freezesText="false"
-                    android:onClick="onClick"
-                    android:text="@string/play"
-                    android:textColor="@android:color/background_light" />
-
-                <SeekBar
-                    android:id="@+id/seekBar"
-                    style="@android:style/Widget.DeviceDefault.SeekBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    tools:targetApi="n" />
-
-            </LinearLayout>
-
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:gravity="center_horizontal|fill_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/content_image"
-                    android:layout_width="400dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|top"
-                    android:layout_marginRight="15dp"
-                    android:adjustViewBounds="true"
-                    android:background="@color/mainactivesec"
-                    android:visibility="gone" />
+                android:scrollbarStyle="outsideOverlay"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:scrollbarSize="10dp"
+                android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/linear_for_all"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center|center_horizontal"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/content_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/maintitle"
+                        android:paddingTop="30dp"
+                        android:textColor="@color/mainbg"
                         android:textSize="30sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/content_body"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="30dp"
                         android:justificationMode="inter_word"
+                        android:paddingTop="20dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/maintitle"
+                        android:textColor="@color/mainbg"
                         android:textColorHighlight="@color/mainactivesec"
                         android:textColorLink="@color/mainactive"
                         android:textSize="18sp"
                         app:lineHeight="30dp"
                         tools:targetApi="o" />
+
                 </LinearLayout>
+            </ScrollView>
 
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        </RelativeLayout>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView4"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/mainpanel"
@@ -140,7 +105,7 @@
                 android:layout_marginRight="5dp"
                 android:width="50dp"
                 android:background="@drawable/arrow_left"
-                android:onClick="onClickClose" />
+                android:onClick="onClick" />
 
             <TextView
                 android:id="@+id/textView"
@@ -148,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:onClick="onClickClose"
+                android:onClick="onClick"
                 android:paddingLeft="5dp"
                 android:text="@string/back"
                 android:textColor="@android:color/background_light"

@@ -2,6 +2,7 @@ package ru.hexronimo.andriod.exhibition;
 
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,18 +25,20 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
     private static Content content;
     private static MediaPlayer mediaPlayer;
-    private static boolean playPosition = false;
+    private static boolean playPosition;
+    private static SeekBar seekbar;
     private static Button playStop;
-    private static Handler mHandler = new Handler();
+    private static Handler mHandler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_audio);
+
 
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
+        setContentView(content.getLayout());
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -54,13 +57,25 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
         mediaPlayer = MediaPlayer.create(getApplicationContext(), content.getAudioPath());
 
-        final SeekBar seekbar = findViewById(R.id.seekBar);
+        seekbar = findViewById(R.id.seekBar);
+
+        seekbar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.mainactive), PorterDuff.Mode.SRC_ATOP);
+        seekbar.getThumb().setColorFilter(getResources().getColor(R.color.mainactivesec), PorterDuff.Mode.SRC_ATOP);
+
         seekbar.setMax(mediaPlayer.getDuration() / 1000);
 
         TextView title = findViewById(R.id.content_title);
         TextView body = findViewById(R.id.content_body);
         ImageView imageView = findViewById(R.id.content_image);
 
+        // if it's not only text
+        if (content.getImagePath() != null) imageView.setVisibility(View.VISIBLE);
+
+        // if is't layout with small image and text at right, we just make image 1/3 of screen
+        if (content.getImagePath() != null) {
+            ViewGroup.LayoutParams paramsimg = imageView.getLayoutParams();
+            paramsimg.width = globalwidth/3;
+        }
 
         seekbar.setOnSeekBarChangeListener(new MySeekBarListener());
         if (content.getTitle() != null) title.setText(content.getTitle());
@@ -69,23 +84,31 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
         playStop = findViewById(R.id.play_pause);
 
-        ContentAudioActivity.this.runOnUiThread(new Runnable() {
 
+        playPosition = false;
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void run() {
-                if (mediaPlayer != null) {
-                    int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
-                    seekbar.setProgress(mCurrentPosition);
+            public void onPrepared(final MediaPlayer mp) {
+                if (content.isAutoPlay()) {
+                    mediaPlayer.start();
+                    playPosition = true;
+                    playStop.setText(R.string.pause);
                 }
-                mHandler.postDelayed(this, 1000);
+                mHandler = new Handler();
+                ContentAudioActivity.this.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (mediaPlayer != null) {
+                            int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                            seekbar.setProgress(mCurrentPosition);
+                        }
+                        mHandler.postDelayed(this, 100);
+                    }
+                });
             }
         });
 
-        if (content.isAutoPlay()) {
-            mediaPlayer.start();
-            playPosition = true;
-            playStop.setText(R.string.pause);
-        }
 
     }
 
@@ -112,13 +135,17 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void onClickClose(View v) {
-        content = null;
-        mediaPlayer.release();
 
+        mediaPlayer.stop();
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler = null;
+        mediaPlayer.release();
+        mediaPlayer = null;
+        content = null;
         ContentAudioActivity.this.finish();
     }
 
-    //chenge seekbar position when user drags seekbar's circle
+    // changes seekbar position when user drags seekbar's circle
     class MySeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
         @Override

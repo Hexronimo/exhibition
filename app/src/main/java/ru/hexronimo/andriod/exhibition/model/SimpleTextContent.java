@@ -9,6 +9,17 @@ public class SimpleTextContent implements Content {
 
     private String title;
     private String text;
+    private int layout;
+
+    public SimpleTextContent(int layout, String title, String text) {
+        this.title = title;
+        this.text = text;
+        this.layout = layout;
+    }
+
+    public SimpleTextContent(int layout) {
+        this.layout = layout;
+    }
 
     @Override
     public String getTextContent() {
@@ -26,7 +37,10 @@ public class SimpleTextContent implements Content {
     public String getTitle() {
         return this.title;
     }
-
+    @Override
+    public int getLayout() {
+        return layout;
+    }
 
     // interface default
     @Override

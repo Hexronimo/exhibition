@@ -4,83 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContentVideoActivity">
+    android:background="@color/mainpanel"
+    tools:context=".ContentActivity">
 
     <ScrollView
-        android:id="@+id/scroll_video"
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/mainbg"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:scrollbarSize="10dp"
         android:scrollbarStyle="outsideOverlay"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView5"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:id="@+id/linear_for_all"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_horizontal"
             android:orientation="vertical">
 
-
-            <RelativeLayout
-                android:id="@+id/rel_video_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <VideoView
-                    android:id="@+id/video"
-                    android:layout_width="1dp"
-                    android:layout_height="1dp"
-                    android:background="#0000"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/content_title"
+            <ImageView
+                android:id="@+id/content_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxWidth="800dp"
-                android:paddingTop="30dp"
-                android:textColor="@color/maintitle"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/content_body"
+            <LinearLayout
+                android:id="@+id/linear_for_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:justificationMode="inter_word"
-                android:maxWidth="800dp"
-                android:paddingTop="15dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/maintext"
-                android:textColorHighlight="@color/mainactivesec"
-                android:textColorLink="@color/mainactive"
-                android:textSize="18sp"
-                app:lineHeight="30dp"
-                tools:targetApi="o" />
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/content_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="30dp"
+                    android:textColor="@color/maintitle"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/content_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="80dp"
+                    android:justificationMode="inter_word"
+                    android:paddingTop="20dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/maintitle"
+                    android:textColorHighlight="@color/mainactive"
+                    android:textColorLink="@color/mainactivesec"
+                    android:textSize="18sp"
+                    app:lineHeight="30dp"
+                    tools:targetApi="o" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView5"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/mainpanel"

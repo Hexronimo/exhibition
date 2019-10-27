@@ -7,9 +7,11 @@ public class SimpleImageContent implements Content {
     private String title;
     private String text;
     private String imagePath;
+    private int layout;
 
-    public SimpleImageContent(Uri uri){
+    public SimpleImageContent(int layout, Uri uri){
         this.imagePath = uri.toString();
+        this.layout = layout;
     }
 
     @Override
@@ -37,6 +39,10 @@ public class SimpleImageContent implements Content {
         this.imagePath = imgPath.toString();
     }
 
+    @Override
+    public int getLayout() {
+        return layout;
+    }
 
     // interface default
     @Override

@@ -9,10 +9,12 @@ public class SimpleVideoContent implements Content {
     private String text;
     private String mediaPath;
     private boolean autoplay = false;
+    private int layout;
 
-    public SimpleVideoContent(Uri media, boolean autoplay){
+    public SimpleVideoContent(int layout, Uri media, boolean autoplay){
         this.mediaPath = media.toString();
         this.autoplay = autoplay;
+        this.layout = layout;
     }
 
     @Override
@@ -47,6 +49,11 @@ public class SimpleVideoContent implements Content {
     @Override
     public Boolean isAutoPlay() {
         return autoplay;
+    }
+
+    @Override
+    public int getLayout() {
+        return layout;
     }
 
     // interface default
