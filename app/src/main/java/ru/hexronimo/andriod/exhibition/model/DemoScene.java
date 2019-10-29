@@ -10,8 +10,7 @@ public class DemoScene {
         String image = Uri.parse("android.resource://" + R.class.getPackage().getName() + resID).toString();
         Scene demoScene = new Scene(image,
                 "Demo Scene",
-                "DEMO Scene",
-                "You will no longer see this demo after adding real scenes to Exhibition");
+                "DEMO Scene");
 
         // jyst text 1
         Content content = new SimpleTextContent(R.layout.activity_content_ver1);

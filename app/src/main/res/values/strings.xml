@@ -4,4 +4,12 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="textview">Audio</string>
+    <string name="description">Description</string>
+    <string name="new_scene">New Scene</string>
+    <string name="name">Name</string>
+    <string name="choose">Choose</string>
+    <string name="save_and_continue">Save and continue</string>
+    <string name="next_scene">Next Scene</string>
+    <string name="previous_scene">Previous Scene</string>
+    <string name="picture_background">Picture (background)</string>
 </resources>

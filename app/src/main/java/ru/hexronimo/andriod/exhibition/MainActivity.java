@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(this, SceneActivity.class);
+        Intent intent = new Intent(this, AddSceneActivity.class);
         startActivity(intent);
 
     }

@@ -18,24 +18,18 @@ public class Scene implements Serializable {
     private Integer right;
     private String info;
     private String title;
-    private String adminTitle;
-    private String adminDesc;
+    private String desc;
 
 
     private List<Point> points;
 
-    public Scene(String image, String title, String adminTitle, String adminDesc) {
+    public Scene(String image, String title, String desc) {
         points = new ArrayList<>();
         if(image != null) {
             this.imagePath = image;
         }
         this.title = title;
-        if (adminTitle != null && adminTitle.trim().length() > 0) {
-            this.adminTitle = adminTitle;
-        } else {
-            this.adminTitle = title;
-        }
-        this.adminDesc = adminDesc;
+        this.desc = desc;
     }
 
     public void setId(int id) {
