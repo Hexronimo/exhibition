@@ -12,7 +12,6 @@ public interface Content extends Serializable{
     public void setTitle(String title);
     public String getTitle();
 
-
     // not every content type have these
     // sadly there is no default methods for intenface in this version, so I need to implement them all
     public Uri getImagePath();
@@ -20,4 +19,5 @@ public interface Content extends Serializable{
     public Uri getVideoPath();
     public Boolean isAutoPlay();
     public int getLayout();
+
 }
