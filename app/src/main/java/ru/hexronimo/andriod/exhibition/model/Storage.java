@@ -1,8 +1,9 @@
-package ru.hexronimo.andriod.exhibition;
+package ru.hexronimo.andriod.exhibition.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -15,12 +16,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Random;
 
-import ru.hexronimo.andriod.exhibition.model.StorageCheck;
 
 public class Storage {
 
     public String writeContentImage(Context c, Uri uri, boolean withTransparency) {
-        if (StorageCheck.isExternalWritable()) {
+        if (isExternalWritable()) {
             StringBuilder sb = new StringBuilder("/exhibitionApp/contents/cont_");
             sb.append(generateRandomName());
             sb.append(withTransparency?".png":".jpg");
@@ -51,7 +51,7 @@ public class Storage {
 
     public void deleteExternalStoragePrivateFile(Context c, String fileName) {
         File file = new File(c.getExternalFilesDir(null), fileName);
-        if (file.exists() && StorageCheck.isExternalWritable()) {
+        if (file.exists() && isExternalWritable()) {
             file.delete();
         }
     }
@@ -73,5 +73,28 @@ public class Storage {
         // storage is not currently mounted this will fail.
         File file = new File(c.getExternalFilesDir(null), fileName);
         return file.exists();
+    }
+
+    public static boolean isExternalWritable() {
+        if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
     }
 }

@@ -148,8 +148,7 @@ public class AddSceneActivity extends AppCompatActivity {
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             if (parent.getId() == R.id.spinner_left) {
                 if (id == 0) left = null;
                 else {
