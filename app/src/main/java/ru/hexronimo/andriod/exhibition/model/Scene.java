@@ -32,6 +32,26 @@ public class Scene implements Serializable {
         this.desc = desc;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setLeft(Integer left) {
+        this.left = left;
+    }
+
+    public void setRight(Integer right) {
+        this.right = right;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

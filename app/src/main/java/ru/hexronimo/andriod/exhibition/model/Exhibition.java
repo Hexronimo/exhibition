@@ -1,11 +1,12 @@
 package ru.hexronimo.andriod.exhibition.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 // it's not static for future scaling reason: few exhibition may be made and then selected in one app
-public class Exhibition {
+public class Exhibition implements Serializable {
     private Map<Integer, Scene> exhibition = new HashMap<>();
     private String name;
 
@@ -23,6 +24,10 @@ public class Exhibition {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addScene(Scene scene) {
         int id;
         Random random = new Random();
@@ -31,6 +36,14 @@ public class Exhibition {
         } while(exhibition.containsKey(id));
         scene.setId(id);
         exhibition.put(id, scene);
+    }
+
+    public Map<Integer, Scene> getExhibition() {
+        return exhibition;
+    }
+
+    public void setExhibition(Map<Integer, Scene> exhibition) {
+        this.exhibition = exhibition;
     }
 
     // finding a scene from which exhibition starts

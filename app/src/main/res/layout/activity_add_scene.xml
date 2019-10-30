@@ -20,6 +20,7 @@
         android:scrollbarThumbVertical="@drawable/custom_scroll_style">
 
         <LinearLayout
+            android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
@@ -27,18 +28,25 @@
             android:padding="30dp">
 
             <TextView
+                android:id="@+id/exhibition_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/new_scene"
                 android:textColor="@color/maintitle"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/scene_name"
                 style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:backgroundTint="@color/mainactivesec"
                 android:ems="10"
                 android:hint="@string/name"
@@ -46,12 +54,20 @@
                 android:maxWidth="500dp"
                 android:textColor="@color/maintext"
                 android:textColorHint="@android:color/darker_gray"
-                android:textSize="18sp" tools:targetApi="o"
-                android:autofillHints="" />
+                android:textSize="18sp"
+                tools:targetApi="o" />
+
+            <TextView
+                android:id="@+id/validate_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_must_not_be_empty"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/scene_desc"
-                style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense"
+                style="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/mainactivesec"
@@ -62,14 +78,16 @@
                 android:inputType="textMultiLine"
                 android:lines="5"
                 android:textColor="@color/maintext"
+                android:textColorHighlight="@color/mainactive"
                 android:textColorHint="@android:color/darker_gray"
+                android:textColorLink="@color/mainactivesec"
                 tools:targetApi="lollipop" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginBottom="15dp"
                 android:text="@string/picture_background"
                 android:textColor="@color/maintitle"
@@ -85,21 +103,31 @@
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
                     android:onClick="onClick"
-                    android:text="@string/choose" />
+                    android:text="@string/choose"
+                    android:textColor="@color/mainbg" />
 
                 <ImageView
                     android:id="@+id/scene_pic"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
-                    android:adjustViewBounds="true"
-                    android:layout_marginStart="15dp" />
+                    android:adjustViewBounds="true" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/validate_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/you_must_add_the_picture"
+                android:textColor="@color/colorAccent"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="35dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -130,15 +158,17 @@
 
                 <Spinner
                     android:id="@+id/spinner_left"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" tools:targetApi="lollipop" />
 
                 <Spinner
                     android:id="@+id/spinner_right"
+                    style="@android:style/Widget.Material.Spinner.Underlined"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1" tools:targetApi="lollipop" />
 
             </LinearLayout>
 
@@ -150,7 +180,9 @@
                 android:layout_marginBottom="30dp"
                 android:layout_weight="1"
                 android:background="@color/mainactivesec"
-                android:text="@string/save_and_continue" />
+                android:onClick="onClickSubmit"
+                android:text="@string/save_and_continue"
+                android:textColor="@color/mainbg" />
         </LinearLayout>
     </ScrollView>
 
