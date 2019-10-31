@@ -7,17 +7,74 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 import java.util.Random;
 
 
 public class Storage {
+    private static Storage instance;
+    private static String pathExhibition;
+    private static String pathScenes;
+    private static String pathContents;
+    private static String mainPath;
+
+    private Storage(){
+        //load dir paths from properties
+        Properties property = new Properties();
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream("src/main/java/ru/hexronimo/android/exhibition/model/config.properties");
+            property.load(fis);
+            mainPath = property.getProperty("mainpath");
+            fis.close();
+        } catch(IOException e){}
+        pathExhibition = "exhibition";
+        pathScenes = "scenes";
+        pathContents = "contents";
+    }
+
+    // make it singleton
+    public static synchronized Storage getInstance() {
+        if (instance == null) {
+            instance = new Storage();
+        }
+        return instance;
+    }
+
+    // save Exhibition object
+    public void saveExhibition(Exhibition exhibition, Context context){
+        File file;
+        if (null == exhibition.getId()) {
+            String id;
+            do {
+                id = generateRandomName();
+                file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + id + ".ser");
+            } while (file.exists());
+            exhibition.setId(id);
+            file.mkdirs();
+        } else {
+            file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhibition.getId() + ".ser");
+        }
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
+                objectOutputStream.writeObject(exhibition);
+                objectOutputStream.close();
+                fos.close();
+            } catch(IOException e){}
+
+    }
+
+    // load Exhibition object
 
     public String writeContentImage(Context c, Uri uri, boolean withTransparency) {
         if (isExternalWritable()) {

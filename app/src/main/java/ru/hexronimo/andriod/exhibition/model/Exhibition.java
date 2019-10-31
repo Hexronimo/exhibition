@@ -16,33 +16,13 @@ import java.util.Random;
 public class Exhibition implements Serializable {
     private Map<Integer, Scene> exhibition = new HashMap<>();
     private String name;
-    private static String savePath;
-    private int id;
+    private String id;
 
     //Test
     public Exhibition(String name){
         //TODO if it deserialize and got nothing it generates demo
         this.name = name;
-        Properties property = new Properties();
-        FileInputStream fis;
-        try {
-            fis = new FileInputStream("src/main/java/ru/hexronimo/android/exhibition/model/config.properties");
-            property.load(fis);
-            savePath = property.getProperty("exhibitionsavepath");
-            fis.close();
-        } catch(IOException e){}
-
         this.generateDemo();
-    }
-
-    public void save(Context context){
-        try {
-            FileOutputStream fos = context.openFileOutput(savePath + "/exhibition/", Context.MODE_PRIVATE);
-            ObjectOutputStream out = new ObjectOutputStream(fos);
-            out.writeObject(this);
-            fos.close();
-            out.close();
-        } catch (IOException e){}
     }
 
     private void generateDemo () {
@@ -50,6 +30,14 @@ public class Exhibition implements Serializable {
             Scene demoScene = DemoScene.createDemo();
             this.addScene(demoScene);
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
