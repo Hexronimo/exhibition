@@ -14,7 +14,7 @@ import java.util.Random;
 
 // it's not static for future scaling reason: few exhibition may be made and then selected in one app
 public class Exhibition implements Serializable {
-    private Map<Integer, Scene> exhibition = new HashMap<>();
+    private Map<String, Scene> exhibition = new HashMap<>();
     private String name;
     private String id;
 
@@ -49,20 +49,14 @@ public class Exhibition implements Serializable {
     }
 
     public void addScene(Scene scene) {
-        int id;
-        Random random = new Random();
-        do {
-           id = random.nextInt(100);
-        } while(exhibition.containsKey(id));
-        scene.setId(id);
-        exhibition.put(id, scene);
+        exhibition.put(scene.getId(), scene);
     }
 
-    public Map<Integer, Scene> getExhibition() {
+    public Map<String, Scene> getExhibition() {
         return exhibition;
     }
 
-    public void setExhibition(Map<Integer, Scene> exhibition) {
+    public void setExhibition(Map<String, Scene> exhibition) {
         this.exhibition = exhibition;
     }
 

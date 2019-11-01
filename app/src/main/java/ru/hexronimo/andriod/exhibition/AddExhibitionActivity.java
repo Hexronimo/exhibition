@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
+import ru.hexronimo.andriod.exhibition.model.Storage;
 
 public class AddExhibitionActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class AddExhibitionActivity extends AppCompatActivity {
             exhibition.setName(nametxt);
 
         }
-
+        Storage.getInstance().saveExhibition(exhibition, this);
     }
 
 }

@@ -74,6 +74,52 @@ public class Storage {
 
     }
 
+    // save Scene object
+    public void saveScene(Scene scene, String exhId, Context context){
+        File file;
+        if (null == scene.getId()) {
+        String id;
+        do {
+            id = generateRandomName();
+            file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/" + id + ".ser");
+        } while (file.exists());
+        scene.setId(id);
+        file.mkdirs();
+    } else {
+        file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/" + scene.getId() + ".ser");
+    }
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
+            objectOutputStream.writeObject(scene);
+            objectOutputStream.close();
+            fos.close();
+        } catch(IOException e){}
+    }
+
+    //save Point with content
+    public void savePoint(Point point, String exhId, String sceneId, Context context){
+        File file;
+        if (null == point.getId()) {
+            String id;
+            do {
+                id = generateRandomName();
+                file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/sc_" + sceneId + "/" + id + ".ser");
+            } while (file.exists());
+            point.setId(id);
+            file.mkdirs();
+        } else {
+            file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/sc_" + sceneId +"/" + point.getId() + ".ser");
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
+            objectOutputStream.writeObject(point);
+            objectOutputStream.close();
+            fos.close();
+        } catch(IOException e){}
+    }
+
     // load Exhibition object
 
     public String writeContentImage(Context c, Uri uri, boolean withTransparency) {
@@ -93,6 +139,7 @@ public class Storage {
                 } else {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
                 }
+
                 FileOutputStream fileOutputStream = new FileOutputStream(outPutFile);
                 fileOutputStream.write(stream.toByteArray());
                 fileOutputStream.close();

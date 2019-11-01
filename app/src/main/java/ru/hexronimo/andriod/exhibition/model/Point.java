@@ -7,8 +7,16 @@ public class Point implements Serializable {
     float marginX;
     float marginY;
     PointIcon pointIcon;
-    Content content;
+    private Content content;
+    private String id;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Point(float x, float y){
         this.marginX = x;

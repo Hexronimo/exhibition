@@ -23,14 +23,15 @@ import java.util.List;
 import ru.hexronimo.andriod.exhibition.model.Content;
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
 import ru.hexronimo.andriod.exhibition.model.Scene;
+import ru.hexronimo.andriod.exhibition.model.Storage;
 
 public class AddSceneActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 6;
     private Uri image = null;
     private Exhibition exhibition;
     private List<Scene> scenes;
-    private Integer left;
-    private Integer right;
+    private String left;
+    private String right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class AddSceneActivity extends AppCompatActivity {
 
         scene.setLeft(left);
         scene.setRight(right);
-
+        Storage.getInstance().saveScene(scene, exhibition.getId(), this);
         exhibition.addScene(scene);
     }
 

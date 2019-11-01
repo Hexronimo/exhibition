@@ -1,21 +1,15 @@
 package ru.hexronimo.andriod.exhibition.model;
 
-import android.os.Environment;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Scene implements Serializable {
 
-    private int id;
+    private String id;
     private String imagePath;
-    private Integer left;
-    private Integer right;
+    private String left;
+    private String right;
     private String info;
     private String title;
     private String desc;
@@ -40,31 +34,31 @@ public class Scene implements Serializable {
         this.title = title;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setLeft(Integer left) {
+    public void setLeft(String left) {
         this.left = left;
     }
 
-    public void setRight(Integer right) {
+    public void setRight(String right) {
         this.right = right;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getLeft() {
+    public String getLeft() {
         return left;
     }
 
-    public Integer getRight() {
+    public String getRight() {
         return right;
     }
 
-    public void LinkLeftRight(int leftSceneId, int rightSceneId) {
+    public void LinkLeftRight(String leftSceneId, String rightSceneId) {
         this.left = leftSceneId;
         this.right = rightSceneId;
     }
