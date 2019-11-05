@@ -12,15 +12,16 @@
 
         <LinearLayout
             android:id="@+id/linear_for_all"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingTop="30dp"
             android:paddingRight="15dp">
 
             <TextView
-                android:id="@+id/exhibition"
+                android:id="@+id/create_exhibition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -31,8 +32,11 @@
 
             <EditText
                 android:id="@+id/add_exhibition_name"
+                style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
+                android:backgroundTint="@color/mainactivesec"
                 android:ems="10"
                 android:hint="@string/name"
                 android:inputType="textPersonName" />
@@ -56,14 +60,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:background="@color/mainactivesec"
+                    android:onClick="onClick"
                     android:text="@string/save"
-                    android:textColor="@color/mainbg" />
+                    android:textColor="@color/mainbg"
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/exh_add_scene"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
+                    android:onClick="onClickNewScene"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@string/add_new_scene"

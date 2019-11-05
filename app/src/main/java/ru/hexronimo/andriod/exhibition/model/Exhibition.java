@@ -14,16 +14,9 @@ import java.util.Random;
 
 // it's not static for future scaling reason: few exhibition may be made and then selected in one app
 public class Exhibition implements Serializable {
-    private Map<String, Scene> exhibition = new HashMap<>();
+    private Map<Integer, Scene> exhibition = new HashMap<>();
     private String name;
     private String id;
-
-    //Test
-    public Exhibition(String name){
-        //TODO if it deserialize and got nothing it generates demo
-        this.name = name;
-        this.generateDemo();
-    }
 
     private void generateDemo () {
         if (exhibition.size() == 0) {
@@ -48,16 +41,19 @@ public class Exhibition implements Serializable {
         this.name = name;
     }
 
-    public void addScene(Scene scene) {
-        exhibition.put(scene.getId(), scene);
+    public int addScene(Scene scene) {
+        Random rand = new Random();
+        int n;
+        do {
+            n = rand.nextInt(20000);
+        } while(exhibition.containsKey(n));
+        scene.setId(n);
+        exhibition.put(n, scene);
+        return n;
     }
 
-    public Map<String, Scene> getExhibition() {
+    public Map<Integer, Scene> getScenes() {
         return exhibition;
-    }
-
-    public void setExhibition(Map<String, Scene> exhibition) {
-        this.exhibition = exhibition;
     }
 
     // finding a scene from which exhibition starts
@@ -67,7 +63,7 @@ public class Exhibition implements Serializable {
         Scene ifNoRightSceneFound = null;
         for (Scene scene: exhibition.values()){
             if (ifNoRightSceneFound == null) ifNoRightSceneFound = scene;
-            if (scene.getLeft() == null && scene.getRight() != null) {
+            if (scene.getLeft() == -1 && scene.getRight() != -1) {
                 return scene;
             }
         }

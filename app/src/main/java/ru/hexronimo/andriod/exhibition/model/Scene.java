@@ -1,19 +1,20 @@
 package ru.hexronimo.andriod.exhibition.model;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Scene implements Serializable {
 
-    private String id;
+    private int id;
     private String imagePath;
-    private String left;
-    private String right;
+    private int left;
+    private int right;
     private String info;
     private String title;
     private String desc;
-
 
     private List<Point> points;
 
@@ -26,6 +27,10 @@ public class Scene implements Serializable {
         this.desc = desc;
     }
 
+    public void deletePoint(int index){
+        points.remove(index);
+    }
+
     public String getTitle() {
         return title;
     }
@@ -34,31 +39,31 @@ public class Scene implements Serializable {
         this.title = title;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setLeft(String left) {
+    public void setLeft(int left) {
         this.left = left;
     }
 
-    public void setRight(String right) {
+    public void setRight(int right) {
         this.right = right;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getLeft() {
+    public int getLeft() {
         return left;
     }
 
-    public String getRight() {
+    public int getRight() {
         return right;
     }
 
-    public void LinkLeftRight(String leftSceneId, String rightSceneId) {
+    public void LinkLeftRight(int leftSceneId, int rightSceneId) {
         this.left = leftSceneId;
         this.right = rightSceneId;
     }
@@ -75,12 +80,12 @@ public class Scene implements Serializable {
         this.points.add(point);
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Uri getImagePath() {
+        return Uri.parse(imagePath);
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImagePath(Uri imagePath) {
+        this.imagePath = imagePath.toString();
     }
 
     public String getInfo() {

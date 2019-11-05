@@ -14,13 +14,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.hexronimo.andriod.exhibition.model.Content;
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
 import ru.hexronimo.andriod.exhibition.model.Scene;
 import ru.hexronimo.andriod.exhibition.model.Storage;
@@ -30,8 +30,8 @@ public class AddSceneActivity extends AppCompatActivity {
     private Uri image = null;
     private Exhibition exhibition;
     private List<Scene> scenes;
-    private String left;
-    private String right;
+    private int left;
+    private int right;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class AddSceneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_scene);
 
         scenes = new ArrayList<>();
-        if (null != exhibition.getExhibition()) scenes.addAll(exhibition.getExhibition().values());
+        if (null != exhibition.getScenes()) scenes.addAll(exhibition.getScenes().values());
 
         // for Spinners
         ArrayList<String> scenesNames = new ArrayList<>();
@@ -130,8 +130,14 @@ public class AddSceneActivity extends AppCompatActivity {
 
         scene.setLeft(left);
         scene.setRight(right);
-        Storage.getInstance().saveScene(scene, exhibition.getId(), this);
-        exhibition.addScene(scene);
+        int sceneId  = exhibition.addScene(scene);
+        Storage.getInstance().saveExhibition(exhibition, view.getContext());
+        Toast.makeText(this, R.string.saved_successfully, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(view.getContext(), EditSceneActivity.class);
+        intent.putExtra("exhibition", exhibition);
+        intent.putExtra("sceneId", sceneId);
+        view.getContext().startActivity(intent);
+        AddSceneActivity.this.finish();
     }
 
     @Override
@@ -151,14 +157,14 @@ public class AddSceneActivity extends AppCompatActivity {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
             if (parent.getId() == R.id.spinner_left) {
-                if (id == 0) left = null;
+                if (id == 0) left = -1;
                 else {
                     left = scenes.get((int)id-1).getId(); // id-1 because 0 is occupied by "NO"
                 }
             }
 
             if (parent.getId() == R.id.spinner_right) {
-                if (id == 0) right = null;
+                if (id == 0) right = -1;
                 else {
                     right = scenes.get((int)id-1).getId();
                 }
@@ -166,8 +172,8 @@ public class AddSceneActivity extends AppCompatActivity {
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
-            if (parent.getId() == R.id.spinner_right) right = null;
-            if (parent.getId() == R.id.spinner_left) left = null;
+            if (parent.getId() == R.id.spinner_right) right = -1;
+            if (parent.getId() == R.id.spinner_left) left = -1;
         }
     }
 

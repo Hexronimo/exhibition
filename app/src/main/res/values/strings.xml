@@ -3,7 +3,6 @@
     <string name="back">Back</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
-    <string name="textview">Audio</string>
     <string name="description">Description</string>
     <string name="new_scene">New Scene</string>
     <string name="name">Name</string>
@@ -20,4 +19,15 @@
     <string name="exhibition_name_can_t_be_empty">Exhibition name can\'t be empty</string>
     <string name="add_new_scene">Add new scene</string>
     <string name="save">Save</string>
+    <string name="saved_successfully">Saved successfully</string>
+    <string name="add_point">Add Point</string>
+    <string name="add_content">Add content</string>
+    <string name="delete">Delete</string>
+    <string name="selected_point">Selected Point:</string>
+    <string name="choose_the_type_of_the_content">Choose the type of the content</string>
+    <string name="create_content">Create Content</string>
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="picture">Picture</string>
+    <string name="audio">Audio</string>
 </resources>

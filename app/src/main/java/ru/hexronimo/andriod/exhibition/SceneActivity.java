@@ -22,7 +22,7 @@ import ru.hexronimo.andriod.exhibition.model.Scene;
 public class SceneActivity extends AppCompatActivity {
     int prevX, prevY;
     private static int pointSize = 0;
-    private static Exhibition exhibition = new Exhibition("DEMO");;
+    private static Exhibition exhibition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

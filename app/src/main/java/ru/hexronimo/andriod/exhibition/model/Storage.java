@@ -51,10 +51,10 @@ public class Storage {
     }
 
     // save Exhibition object
-    public void saveExhibition(Exhibition exhibition, Context context){
+    public String saveExhibition(Exhibition exhibition, Context context){
         File file;
+        String id = null;
         if (null == exhibition.getId()) {
-            String id;
             do {
                 id = generateRandomName();
                 file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + id + ".ser");
@@ -71,31 +71,9 @@ public class Storage {
                 objectOutputStream.close();
                 fos.close();
             } catch(IOException e){}
-
+        return id;
     }
 
-    // save Scene object
-    public void saveScene(Scene scene, String exhId, Context context){
-        File file;
-        if (null == scene.getId()) {
-        String id;
-        do {
-            id = generateRandomName();
-            file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/" + id + ".ser");
-        } while (file.exists());
-        scene.setId(id);
-        file.mkdirs();
-    } else {
-        file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/" + scene.getId() + ".ser");
-    }
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
-            objectOutputStream.writeObject(scene);
-            objectOutputStream.close();
-            fos.close();
-        } catch(IOException e){}
-    }
 
     //save Point with content
     public void savePoint(Point point, String exhId, String sceneId, Context context){
