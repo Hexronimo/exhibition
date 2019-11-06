@@ -11,10 +11,12 @@ public class SimpleVideoContent implements Content {
     private boolean autoplay = false;
     private int layout;
 
-    public SimpleVideoContent(int layout, Uri media, boolean autoplay){
+    public SimpleVideoContent(int layout, Uri media, boolean autoplay, String title, String text){
         this.mediaPath = media.toString();
         this.autoplay = autoplay;
         this.layout = layout;
+        this.title = title;
+        this.text = text;
     }
 
     @Override

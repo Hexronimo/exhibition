@@ -73,7 +73,7 @@
             android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:gravity="left"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingTop="30dp"
@@ -90,7 +90,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/add_content_name2"
+                android:id="@+id/content_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
@@ -125,6 +125,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
+                android:id="@+id/if_load_from_file"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -147,12 +148,14 @@
                 android:layout_marginBottom="15dp"
                 android:text="@string/picture"
                 android:textColor="@color/maintitle"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/if_picture"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_img"
@@ -181,12 +184,14 @@
                 android:layout_marginBottom="15dp"
                 android:text="@string/audio"
                 android:textColor="@color/maintitle"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/if_audio"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_audio"
@@ -215,12 +220,14 @@
                 android:text="@string/picture"
                 android:textColor="@color/maintitle"
                 android:textSize="18sp"
-                tools:text="Video" />
+                tools:text="Video"
+                tools:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/if_video"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_video"
@@ -239,6 +246,13 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
+            <Switch
+                android:id="@+id/autoplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Autoplay   " />
 
         </LinearLayout>
     </ScrollView>

@@ -12,11 +12,13 @@ public class SimpleAudioContent implements Content {
     private boolean autoPlay;
     private int layout;
 
-    public SimpleAudioContent(int layout, Uri media, Uri image, boolean autoplay){
+    public SimpleAudioContent(int layout, Uri media, Uri image, boolean autoplay, String title, String text){
         this.mediaPath = media.toString();
         if (image != null && !"".equals(image)) this.imgPath = image.toString();
         this.autoPlay = autoplay;
         this.layout = layout;
+        this.title = title;
+        this.text = text;
     }
 
 

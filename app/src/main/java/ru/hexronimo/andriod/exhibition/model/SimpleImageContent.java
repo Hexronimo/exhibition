@@ -9,9 +9,11 @@ public class SimpleImageContent implements Content {
     private String imagePath;
     private int layout;
 
-    public SimpleImageContent(int layout, Uri uri){
+    public SimpleImageContent(int layout, Uri uri, String title, String text){
         this.imagePath = uri.toString();
         this.layout = layout;
+        this.title = title;
+        this.text = text;
     }
 
     @Override
