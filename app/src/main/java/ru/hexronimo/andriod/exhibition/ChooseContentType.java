@@ -2,6 +2,7 @@ package ru.hexronimo.andriod.exhibition;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ public class ChooseContentType extends AppCompatActivity {
 
     }
 
-    public class CustomGridViewAdapter extends BaseAdapter {
+    public class CustomGridViewAdapter extends BaseAdapter implements View.OnClickListener {
 
         public Integer[] imgThumbs = {
                 R.drawable.l05, R.drawable.l06,
@@ -73,8 +74,38 @@ public class ChooseContentType extends AppCompatActivity {
             final ImageView imageView = (ImageView)convertView.findViewById(R.id.grid_image);
             final TextView textView = (TextView)convertView.findViewById(R.id.grid_text);
             imageView.setImageDrawable(getResources().getDrawable(imgThumbs[position]));
+            imageView.setId(position);
+            imageView.setOnClickListener(this);
             textView.setText(imgNames[position]);
             return convertView;
         }
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+    public void onClick(View view){
+        Intent intent = new Intent(this, ContentActivity.class);
+
+        switch(view.getId()){
+            case 0 : intent.putExtra("content_layout", R.layout.activity_content_ver1);
+            break;
+            case 1: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+            break;
+            case 2: intent.putExtra("content_layout", R.layout.activity_content_ver3);
+            break;
+            case 3: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+            break;
+            case 4: intent.putExtra("content_layout", R.layout.activity_content_ver4);
+            break;
+            case 5: intent.putExtra("content_layout", R.layout.activity_content_audio);
+            break;
+            case 6: intent.putExtra("content_layout", R.layout.activity_content_video);
+            break;
+            default: intent.putExtra("content_layout", R.layout.activity_content_ver1);
+
+        }
+        this.startActivity(intent);
     }
 }

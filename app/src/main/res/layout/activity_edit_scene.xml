@@ -117,12 +117,25 @@
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:background="@color/mainactivesec"
                 android:onClick="onClickDelete"
                 android:padding="10dp"
                 android:text="@string/delete"
                 android:textColor="@color/mainbg" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/mainactivesec"
+                android:onClick="onClickSavePosition"
+                android:padding="10dp"
+                android:text="@string/save_new_position"
+                android:textColor="@color/mainbg"
+                android:visibility="gone" />
         </LinearLayout>
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

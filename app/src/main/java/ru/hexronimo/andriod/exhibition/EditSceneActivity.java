@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
 import ru.hexronimo.andriod.exhibition.model.Point;
 import ru.hexronimo.andriod.exhibition.model.Scene;
+import ru.hexronimo.andriod.exhibition.model.Storage;
 
 
 public class EditSceneActivity extends AppCompatActivity implements View.OnTouchListener {
@@ -38,6 +40,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         Intent i = getIntent();
         exhibition = (Exhibition) i.getSerializableExtra("exhibition");
         scene = exhibition.getScenes().get(i.getSerializableExtra("sceneId"));
+
 
         ImageView imageView = findViewById(R.id.scene_image);
 
@@ -74,11 +77,29 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         selectedPointId = null; // it's still null cuz unsaved (can be saved after adding content)
         selectedPoint = btn;
         rl.addView(btn);
+        Toast.makeText(this, R.string.drag_and_drop, Toast.LENGTH_SHORT).show();
     }
 
     public void onClickAddContent(View v) {
-        Intent intent = new Intent(v.getContext(), ChooseContentType.class);
+        Intent intent;
+        if (selectedPointId != null) {
+            intent = new Intent(v.getContext(), AddContentActivity.class);
+        } else {
+            intent = new Intent(v.getContext(), ChooseContentType.class);
+            intent.putExtra("X", prevX);
+            intent.putExtra("Y", prevY);
+        }
+        intent.putExtra("exhibition", exhibition);
+        intent.putExtra("sceneId", scene.getId());
+        intent.putExtra("pointId", selectedPointId);
+
         v.getContext().startActivity(intent);
+        EditSceneActivity.this.finish();
+    }
+
+    public void onClickSavePosition(View view){
+        Storage.getInstance().saveExhibition(exhibition, this);
+        Toast.makeText(this, R.string.saved_successfully, Toast.LENGTH_SHORT).show();
     }
 
     public boolean onTouch(View v, MotionEvent event) {
@@ -104,8 +125,6 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
             }
             case MotionEvent.ACTION_DOWN: {
                 BottomNavigationView bnv = findViewById(R.id.edit_scene_bottom);
-                bnv.setVisibility(View.VISIBLE);
-
                 // unselect previous selected and select pressed button
                 if (v.getId() != selectedPoint.getId()) {
                     selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
@@ -113,6 +132,16 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
                     selectedPointId = v.getId();
                     selectedPoint = (Button)v;
                 }
+                Button btn2 = findViewById(R.id.button7);
+                if (selectedPointId != null) {
+                    Button btn = findViewById(R.id.button5);
+                    btn.setText(R.string.edit_content);
+                    btn2.setVisibility(View.VISIBLE);
+                } else {
+                    btn2.setVisibility(View.GONE);
+                }
+
+                bnv.setVisibility(View.VISIBLE);
                 horizontalScrollView.requestDisallowInterceptTouchEvent(true);
                 prevX=(int)event.getRawX();
                 prevY=(int)event.getRawY();

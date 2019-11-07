@@ -19,15 +19,19 @@
     <string name="exhibition_name_can_t_be_empty">Exhibition name can\'t be empty</string>
     <string name="add_new_scene">Add new scene</string>
     <string name="save">Save</string>
-    <string name="saved_successfully">Saved successfully</string>
+    <string name="saved_successfully">Saved successfully!</string>
+    <string name="drag_and_drop">Drag a point to the right position</string>
     <string name="add_point">Add Point</string>
     <string name="add_content">Add content</string>
+    <string name="edit_content">Edit content</string>
+    <string name="save_new_position">Save Position</string>
     <string name="delete">Delete</string>
     <string name="selected_point">Selected Point:</string>
-    <string name="choose_the_type_of_the_content">Choose the type of the content</string>
+    <string name="choose_the_type_of_the_content">Choose the type of content</string>
     <string name="create_content">Create Content</string>
     <string name="title">Title</string>
     <string name="text">Text</string>
     <string name="picture">Picture</string>
     <string name="audio">Audio</string>
+    <string name="autoplay">Autoplay   </string>
 </resources>

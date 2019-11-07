@@ -27,7 +27,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_back"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
                 android:layout_marginRight="5dp"
@@ -36,7 +36,7 @@
                 android:onClick="onClickClose" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/text_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
@@ -51,10 +51,11 @@
 
             <Button
                 android:id="@+id/button4"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/mainactivesec"
+                android:onClick="onClick"
                 android:text="@string/save"
                 android:textColor="@color/mainbg" />
         </LinearLayout>
@@ -120,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="or load text from file"
+                android:text="or load text from file (.txt)"
                 android:textColor="@color/maintitle"
                 android:textSize="18sp" />
 
@@ -135,7 +136,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
-                    android:onClick="onClick"
+                    android:onClick="onClickLoad"
                     android:text="@string/choose"
                     android:textColor="@color/mainbg" />
             </LinearLayout>
@@ -162,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
-                    android:onClick="onClick"
+                    android:onClick="onClickLoad"
                     android:text="@string/choose"
                     android:textColor="@color/mainbg" />
 
@@ -198,7 +199,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
-                    android:onClick="onClick"
+                    android:onClick="onClickLoad"
                     android:text="@string/choose"
                     android:textColor="@color/mainbg" />
 
@@ -234,7 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/mainactivesec"
-                    android:onClick="onClick"
+                    android:onClick="onClickLoad"
                     android:text="@string/choose"
                     android:textColor="@color/mainbg" />
 
@@ -249,10 +250,11 @@
 
             <Switch
                 android:id="@+id/autoplay"
-                android:layout_width="wrap_content"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="Autoplay   " />
+                android:text="@string/autoplay"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
