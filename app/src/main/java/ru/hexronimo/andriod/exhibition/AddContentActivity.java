@@ -1,5 +1,6 @@
 package ru.hexronimo.andriod.exhibition;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import ru.hexronimo.andriod.exhibition.model.Content;
 import ru.hexronimo.andriod.exhibition.model.Exhibition;
@@ -148,6 +155,52 @@ public class AddContentActivity extends AppCompatActivity {
                 intent.setType("video/*");
                 startActivityForResult(intent, READ_REQUEST_CODE_4);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri textUri = data.getData();
+            try {
+                InputStream is = getContentResolver().openInputStream(textUri);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                int i;
+                try {
+                    i = is.read();
+                    while (i != -1) {
+                        byteArrayOutputStream.write(i);
+                        i = is.read();
+                    }
+                    is.close();
+                    TextView textView = findViewById(R.id.content_text);
+                    textView.setText(byteArrayOutputStream.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(requestCode==READ_REQUEST_CODE_2 && resultCode == Activity.RESULT_OK) {
+            image = data.getData();
+            ImageView imageView = findViewById(R.id.scene_pic);
+            imageView.setImageURI(image);
+        }
+
+        if(requestCode==READ_REQUEST_CODE_3 && resultCode == Activity.RESULT_OK) {
+            audio = data.getData();
+            TextView textView = findViewById(R.id.textView11);
+            textView.setText(audio.toString());
+        }
+
+        if(requestCode==READ_REQUEST_CODE_4 && resultCode == Activity.RESULT_OK) {
+            video = data.getData();
+            TextView textView = findViewById(R.id.text_video);
+            textView.setText(video.toString());
         }
     }
 
