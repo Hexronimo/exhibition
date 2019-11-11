@@ -18,12 +18,6 @@ public class Exhibition implements Serializable {
     private String name;
     private String id;
 
-    private void generateDemo () {
-        if (exhibition.size() == 0) {
-            Scene demoScene = DemoScene.createDemo();
-            this.addScene(demoScene);
-        }
-    }
 
     public String getId() {
         return id;
@@ -42,12 +36,17 @@ public class Exhibition implements Serializable {
     }
 
     public int addScene(Scene scene) {
-        Random rand = new Random();
         int n;
-        do {
-            n = rand.nextInt(20000);
-        } while(exhibition.containsKey(n));
-        scene.setId(n);
+        if (null == scene.getId()) {
+            Random rand = new Random();
+            do {
+                n = rand.nextInt(20000);
+            } while(exhibition.containsKey(n));
+            scene.setId(n);
+        } else {
+            n = scene.getId();
+        }
+
         exhibition.put(n, scene);
         return n;
     }

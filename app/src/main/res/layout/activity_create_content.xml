@@ -7,66 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/mainpanel"
-        android:paddingStart="30dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="30dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="left|center_vertical"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_back"
-                android:layout_width="40dp"
-                android:layout_height="45dp"
-                android:layout_marginRight="5dp"
-                android:width="50dp"
-                android:background="@drawable/arrow_left"
-                android:onClick="onClickClose" />
-
-            <TextView
-                android:id="@+id/text_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:onClick="onClickClose"
-                android:paddingLeft="5dp"
-                android:text="@string/back"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/mainactivesec"
-                android:onClick="onClick"
-                android:text="@string/save"
-                android:textColor="@color/mainbg" />
-        </LinearLayout>
-
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -150,13 +97,13 @@
                 android:text="@string/picture"
                 android:textColor="@color/maintitle"
                 android:textSize="18sp"
-                tools:visibility="gone" />
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/if_picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_img"
@@ -218,17 +165,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="45dp"
                 android:layout_marginBottom="15dp"
-                android:text="@string/picture"
+                android:text="@string/video"
                 android:textColor="@color/maintitle"
                 android:textSize="18sp"
-                tools:text="Video"
-                tools:visibility="gone" />
+                android:visibility="gone"
+                tools:text="Video" />
 
             <LinearLayout
                 android:id="@+id/if_video"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:visibility="gone">
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/btn_video"
@@ -258,4 +205,59 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainpanel"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginRight="5dp"
+                android:width="50dp"
+                android:background="@drawable/arrow_left"
+                android:onClick="onClickClose" />
+
+            <TextView
+                android:id="@+id/text_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:onClick="onClickClose"
+                android:paddingLeft="5dp"
+                android:text="@string/back"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/mainactivesec"
+                android:onClick="onClick"
+                android:text="@string/save"
+                android:textColor="@color/mainbg" />
+        </LinearLayout>
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>

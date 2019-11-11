@@ -8,14 +8,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:text="@string/choose_the_type_of_the_content"
             android:textColor="@color/maintitle"
             android:textSize="18sp"
@@ -25,6 +29,7 @@
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
             android:columnWidth="200dp"
             android:gravity="center"
             android:horizontalSpacing="15dp"

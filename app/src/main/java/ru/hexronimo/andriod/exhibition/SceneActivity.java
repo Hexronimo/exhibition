@@ -91,7 +91,6 @@ public class SceneActivity extends AppCompatActivity {
             //my classes
 
             Scene scene = exhibition.getLeft();
-            System.out.println(scene);
 
             int i = 0;
             for (Point point : scene.getPoints()) {

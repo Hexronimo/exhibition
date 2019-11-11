@@ -10,7 +10,7 @@ public class SimpleImageContent implements Content {
     private int layout;
 
     public SimpleImageContent(int layout, Uri uri, String title, String text){
-        this.imagePath = uri.toString();
+        if (uri != null && !"".equals(uri.toString().trim())) this.imagePath = uri.toString();
         this.layout = layout;
         this.title = title;
         this.text = text;

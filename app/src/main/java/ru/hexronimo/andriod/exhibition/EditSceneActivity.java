@@ -31,6 +31,8 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
     private static Button selectedPoint;
     private static int centerX;
     private static int centerY;
+    private int imageHeight;
+    private int imageWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +42,6 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         Intent i = getIntent();
         exhibition = (Exhibition) i.getSerializableExtra("exhibition");
         scene = exhibition.getScenes().get(i.getSerializableExtra("sceneId"));
-
-
         ImageView imageView = findViewById(R.id.scene_image);
 
         //adding jpg picture to ImageView
@@ -64,6 +64,9 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
             RelativeLayout rl = findViewById(R.id.scene_relative_layout);
             rl.removeView(selectedPoint);
         }
+        //change color of previously selected point
+        if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
+
         // create new Point and place it in middle of screen
         Button btn = new Button(getApplicationContext());
         btn.setId(scene.getPoints().size());
@@ -74,7 +77,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         btn.setOnTouchListener(this);
 
         RelativeLayout rl = findViewById(R.id.scene_relative_layout);
-        selectedPointId = null; // it's still null cuz unsaved (can be saved after adding content)
+        selectedPointId = null; // it's still null because point is unsaved (can be saved only after adding content)
         selectedPoint = btn;
         rl.addView(btn);
         Toast.makeText(this, R.string.drag_and_drop, Toast.LENGTH_SHORT).show();
@@ -86,15 +89,17 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
             intent = new Intent(v.getContext(), AddContentActivity.class);
         } else {
             intent = new Intent(v.getContext(), ChooseContentType.class);
-            intent.putExtra("X", prevX);
-            intent.putExtra("Y", prevY);
+            RelativeLayout.LayoutParams par=(RelativeLayout.LayoutParams)selectedPoint.getLayoutParams();
+            intent.putExtra("X", par.leftMargin/(float)imageWidth);
+            intent.putExtra("Y", par.topMargin/(float)imageHeight);
         }
         intent.putExtra("exhibition", exhibition);
         intent.putExtra("sceneId", scene.getId());
         intent.putExtra("pointId", selectedPointId);
-
-        v.getContext().startActivity(intent);
+        
         EditSceneActivity.this.finish();
+        v.getContext().startActivity(intent);
+
     }
 
     public void onClickSavePosition(View view){
@@ -107,14 +112,6 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         HorizontalScrollView horizontalScrollView = (HorizontalScrollView)findViewById(R.id.horizontalScrollView);
 
         switch(event.getAction()) {
-            case MotionEvent.ACTION_UP: {
-                // save new position of the Point
-                if (selectedPointId != null) {
-                    scene.getPoints().get(selectedPointId).setMarginX(par.leftMargin);
-                    scene.getPoints().get(selectedPointId).setMarginY(par.topMargin);
-                }
-                return true;
-            }
             case MotionEvent.ACTION_MOVE: {
                 par.topMargin+=(int)event.getRawY()-prevY;
                 prevY=(int)event.getRawY();
@@ -125,13 +122,13 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
             }
             case MotionEvent.ACTION_DOWN: {
                 BottomNavigationView bnv = findViewById(R.id.edit_scene_bottom);
-                // unselect previous selected and select pressed button
+                // change color of button when pressed and dragged, and also change color of previously selected button
                 if (v.getId() != selectedPoint.getId()) {
-                    selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
-                    v.setBackgroundResource(R.drawable.pointblue);
+                    if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed); // prev
                     selectedPointId = v.getId();
-                    selectedPoint = (Button)v;
                 }
+                selectedPoint = (Button)v;
+                v.setBackgroundResource(R.drawable.pointblue); // pressed
                 Button btn2 = findViewById(R.id.button7);
                 if (selectedPointId != null) {
                     Button btn = findViewById(R.id.button5);
@@ -170,8 +167,8 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         @Override
         public void onGlobalLayout() {
             View v = (View) findViewById(R.id.scene_image);
-            int imageHeight =  v.getHeight();
-            int imageWidth =  v.getWidth();
+            imageHeight =  v.getHeight();
+            imageWidth =  v.getWidth();
             pointSize = imageHeight/12;
             RelativeLayout rl = findViewById(R.id.scene_relative_layout);
 
@@ -182,13 +179,11 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
                 btn.setId(i);
 
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(pointSize, pointSize);
-
-                params.setMargins((int)(imageWidth*point.getMarginX()), (int)(imageHeight*point.getMarginY()),0,0);
+                params.setMargins((int)(point.getMarginX()*imageWidth), (int)(point.getMarginY()*imageHeight),0,0);
+                btn.setOnTouchListener(EditSceneActivity.this);
                 btn.setLayoutParams(params);
                 btn.setBackgroundResource(R.drawable.pointbluepressed);
-                PointOnTouchListener listener = new PointOnTouchListener();
-                listener.setPoint(point);
-                btn.setOnTouchListener(listener);
+
                 rl.addView(btn);
                 i++;
             }

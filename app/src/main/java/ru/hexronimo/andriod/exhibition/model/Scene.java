@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Scene implements Serializable {
 
-    private int id;
+    private Integer id;
     private String imagePath;
     private int left;
     private int right;
@@ -39,7 +39,7 @@ public class Scene implements Serializable {
         this.title = title;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -78,6 +78,9 @@ public class Scene implements Serializable {
 
     public void addPoint(Point point){
         this.points.add(point);
+    }
+    public void changePoint(int index, Point point){
+        this.points.add(index, point);
     }
 
     public Uri getImagePath() {

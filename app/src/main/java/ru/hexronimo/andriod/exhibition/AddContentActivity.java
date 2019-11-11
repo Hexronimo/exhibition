@@ -210,7 +210,7 @@ public class AddContentActivity extends AppCompatActivity {
 
         String tTitle = title.getText().toString();
         if (tTitle.trim().length() == 0) tTitle = null;
-        String tText = title.getText().toString();
+        String tText = text.getText().toString();
         if (tText.trim().length() == 0) tText = null;
 
         Switch autoplay = findViewById(R.id.autoplay);
@@ -220,21 +220,20 @@ public class AddContentActivity extends AppCompatActivity {
         else if (layout == R.layout.activity_content_audio) content = new SimpleAudioContent(layout, audio, image, isAutoplay, tTitle, tText);
         else if (layout == R.layout.activity_content_ver1 || layout == R.layout.activity_content_ver3) content = new SimpleTextContent(layout, tTitle, tText);
         else content = new SimpleImageContent(layout, image, tTitle, tText);
-
-        AddContentActivity.this.finish();
-    }
-
-    public void onClickSave (View view) {
-
+        if (point == null) {
+            point = new Point((Float) getIntent().getSerializableExtra("X"), (Float) getIntent().getSerializableExtra("Y"), content);
+            scene.addPoint(point);
+        } else {
+            point = scene.getPoints().get(pointId);
+            point.setContent(content);
+            scene.changePoint(pointId, point);
+        }
+        exhibition.addScene(scene);
 
         Storage.getInstance().saveExhibition(exhibition, this);
-        Intent intent = new Intent(view.getContext(), EditSceneActivity.class);
-        intent.putExtra("exhibition", exhibition);
-        intent.putExtra("sceneId", scene.getId());
-
-
-        view.getContext().startActivity(intent);
+        onClickClose(view);
     }
+
 
     public void onClickClose(View v) {
         image = null;
@@ -243,6 +242,7 @@ public class AddContentActivity extends AppCompatActivity {
         content = null;
         pointId = null;
         point = null;
+
         Intent intent = new Intent(v.getContext(), EditSceneActivity.class);
         intent.putExtra("exhibition", exhibition);
         intent.putExtra("sceneId", scene.getId());

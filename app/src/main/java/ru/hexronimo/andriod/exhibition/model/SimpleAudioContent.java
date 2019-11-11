@@ -14,7 +14,7 @@ public class SimpleAudioContent implements Content {
 
     public SimpleAudioContent(int layout, Uri media, Uri image, boolean autoplay, String title, String text){
         this.mediaPath = media.toString();
-        if (image != null && !"".equals(image)) this.imgPath = image.toString();
+        if (image != null && !"".equals(image.toString().trim())) this.imgPath = image.toString();
         this.autoPlay = autoplay;
         this.layout = layout;
         this.title = title;

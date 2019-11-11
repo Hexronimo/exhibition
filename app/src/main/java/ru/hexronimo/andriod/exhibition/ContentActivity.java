@@ -22,8 +22,6 @@ public class ContentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         Intent i = getIntent();
         content = (Content)i.getSerializableExtra("content");
         setContentView(content.getLayout());

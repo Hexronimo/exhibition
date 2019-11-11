@@ -66,46 +66,45 @@ public class ChooseContentType extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-                convertView = layoutInflater.inflate(R.layout.layout_grid_item_image_text, null);
-            }
+
+            final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            convertView = layoutInflater.inflate(R.layout.layout_grid_item_image_text, null);
 
             final ImageView imageView = (ImageView)convertView.findViewById(R.id.grid_image);
             final TextView textView = (TextView)convertView.findViewById(R.id.grid_text);
             imageView.setImageDrawable(getResources().getDrawable(imgThumbs[position]));
             imageView.setId(position);
+
             imageView.setOnClickListener(this);
             textView.setText(imgNames[position]);
             return convertView;
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), AddContentActivity.class);
+            intent.putExtras(getIntent());
 
+            switch(view.getId()){
+                case 0 : intent.putExtra("content_layout", R.layout.activity_content_ver1);
+                    break;
+                case 1: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+                    break;
+                case 2: intent.putExtra("content_layout", R.layout.activity_content_ver3);
+                    break;
+                case 3: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+                    break;
+                case 4: intent.putExtra("content_layout", R.layout.activity_content_ver4);
+                    break;
+                case 5: intent.putExtra("content_layout", R.layout.activity_content_audio);
+                    break;
+                case 6: intent.putExtra("content_layout", R.layout.activity_content_video);
+                    break;
+                default: intent.putExtra("content_layout", R.layout.activity_content_ver1);
+
+            }
+            mContext.startActivity(intent);
+            ChooseContentType.this.finish();
         }
-    }
-    public void onClick(View view){
-        Intent intent = new Intent(this, ContentActivity.class);
-
-        switch(view.getId()){
-            case 0 : intent.putExtra("content_layout", R.layout.activity_content_ver1);
-            break;
-            case 1: intent.putExtra("content_layout", R.layout.activity_content_ver2);
-            break;
-            case 2: intent.putExtra("content_layout", R.layout.activity_content_ver3);
-            break;
-            case 3: intent.putExtra("content_layout", R.layout.activity_content_ver2);
-            break;
-            case 4: intent.putExtra("content_layout", R.layout.activity_content_ver4);
-            break;
-            case 5: intent.putExtra("content_layout", R.layout.activity_content_audio);
-            break;
-            case 6: intent.putExtra("content_layout", R.layout.activity_content_video);
-            break;
-            default: intent.putExtra("content_layout", R.layout.activity_content_ver1);
-
-        }
-        this.startActivity(intent);
     }
 }

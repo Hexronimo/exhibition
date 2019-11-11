@@ -18,11 +18,6 @@ public class Point implements Serializable {
         this.id = id;
     }
 
-    public Point(float x, float y){
-        this.marginX = x;
-        this.marginY = y;
-    }
-
     public Point(float x, float y, Content content){
         this.marginX = x;
         this.marginY = y;
@@ -30,6 +25,10 @@ public class Point implements Serializable {
         if (content.getClass().isInstance(SimpleTextContent.class)) {
             pointIcon = PointIcon.TEXT;
         }
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
     }
 
     public Content getContent(){
