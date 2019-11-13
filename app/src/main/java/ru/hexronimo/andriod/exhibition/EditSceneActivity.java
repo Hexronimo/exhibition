@@ -59,13 +59,14 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
 
     // click button "Create new Point"
     public void onClickAddPoint(View v) {
-        // if one new unsaved Point already exists we need to remove it
-        if (selectedPointId == null && selectedPoint != null) {
+        // change color of previously selected point to non-active (darken) color
+        if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
+
+        // if added unsaved Point already exists we need to remove it
+        if (-1 == selectedPointId) {
             RelativeLayout rl = findViewById(R.id.scene_relative_layout);
             rl.removeView(selectedPoint);
         }
-        //change color of previously selected point
-        if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
 
         // create new Point and place it in middle of screen
         Button btn = new Button(getApplicationContext());
@@ -76,10 +77,12 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         btn.setBackgroundResource(R.drawable.pointblue);
         btn.setOnTouchListener(this);
 
+        selectedPointId = -1; // it's -1 for unsaved point (it can be saved only after adding content)
+        selectedPoint = (Button)v;
         RelativeLayout rl = findViewById(R.id.scene_relative_layout);
-        selectedPointId = null; // it's still null because point is unsaved (can be saved only after adding content)
-        selectedPoint = btn;
         rl.addView(btn);
+        Button btn2 = findViewById(R.id.button5);
+        btn2.setText(R.string.add_content);
         Toast.makeText(this, R.string.drag_and_drop, Toast.LENGTH_SHORT).show();
     }
 
@@ -103,6 +106,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
     }
 
     public void onClickSavePosition(View view){
+        //TODO
         Storage.getInstance().saveExhibition(exhibition, this);
         Toast.makeText(this, R.string.saved_successfully, Toast.LENGTH_SHORT).show();
     }
@@ -121,16 +125,20 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
                 return true;
             }
             case MotionEvent.ACTION_DOWN: {
-                BottomNavigationView bnv = findViewById(R.id.edit_scene_bottom);
-                // change color of button when pressed and dragged, and also change color of previously selected button
-                if (v.getId() != selectedPoint.getId()) {
-                    if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed); // prev
+                // change color of previously selected point to non-active (darken) color
+                if (selectedPointId != null) {
+                    selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
+                }
+                v.setBackgroundResource(R.drawable.pointblue);
+                selectedPoint = (Button) v;
+
+                //if it's already existing saved point
+                if (selectedPointId != null && selectedPointId != -1) {
                     selectedPointId = v.getId();
                 }
-                selectedPoint = (Button)v;
-                v.setBackgroundResource(R.drawable.pointblue); // pressed
+
                 Button btn2 = findViewById(R.id.button7);
-                if (selectedPointId != null) {
+                if (selectedPointId != -1) {
                     Button btn = findViewById(R.id.button5);
                     btn.setText(R.string.edit_content);
                     btn2.setVisibility(View.VISIBLE);
@@ -138,6 +146,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
                     btn2.setVisibility(View.GONE);
                 }
 
+                BottomNavigationView bnv = findViewById(R.id.edit_scene_bottom);
                 bnv.setVisibility(View.VISIBLE);
                 horizontalScrollView.requestDisallowInterceptTouchEvent(true);
                 prevX=(int)event.getRawX();
@@ -153,7 +162,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
     }
 
     public void onClickDelete(View view){
-        if (selectedPointId != null) scene.deletePoint(view.getId());
+        if (selectedPointId != -1) scene.deletePoint(view.getId());
         selectedPointId = null;
         RelativeLayout rl = findViewById(R.id.scene_relative_layout);
         rl.removeView(selectedPoint);
