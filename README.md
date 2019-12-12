@@ -1,19 +1,13 @@
-# Virtual Exhibition Editor (Android App)
-Android (Java) application to make and view virtual exhibitions
+# Android App for making and viewing virtual exhibitions
+This application made with Java in Android Studio, it's my first Android project.
 
-## SOON!!! Currently in development 
+## Currently in development 
 
-We have few old cheap tablets at work
-![my_image_1](https://raw.githubusercontent.com/Hexronimo/exhibition/master/exhibition_000.jpg)
-So why not to make some kind of virtual exhibition in them?
-![my_image_1](https://github.com/Hexronimo/exhibition/raw/master/exhibition_001.jpg)
+## Idea (pre-development)
+![my_image_1](https://raw.githubusercontent.com/Hexronimo/exhibition/master/idea.jpg)
+I have few old cheap tablets at my current workplace and think it would be nice to give them second life. So I wanted to make exibition viewer for them, something very simple and universal, that any non-technical person can use later and supply with a new content.
+It's not VR or 3D Panorama, because from my experience it's not what people need in everyday use. Usually we need "tap this point -> read about it" programm and that's it. 
+Also important thing - end-point user (not developer and content-manager) shouldn't be able to close it or make some harm. 
 
-Tho not just one exhibition, but editor to make any kind of exhibitions and fill them with different content.
-Exhibition creating with this editor must be so easy that any user without technical knowledge can do it.
-
-## While now it supports these types of content:
-* 2 layouts of text content (some html tags allowed)
-* 3 layouts of text and image content
-* audio 
-* video
-
+## Here will be photos from real usage
+I like images
