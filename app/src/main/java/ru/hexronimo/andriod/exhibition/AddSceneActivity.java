@@ -25,6 +25,8 @@ import ru.hexronimo.andriod.exhibition.model.Exhibition;
 import ru.hexronimo.andriod.exhibition.model.Scene;
 import ru.hexronimo.andriod.exhibition.model.Storage;
 
+import static java.security.AccessController.getContext;
+
 public class AddSceneActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 6;
     private Uri image = null;
@@ -88,6 +90,12 @@ public class AddSceneActivity extends AppCompatActivity {
         }
     }
 
+    public void onClickClose(View v){
+        Intent intent = new Intent(this, AddExhibitionActivity.class);
+        intent.putExtras(getIntent());
+        this.startActivity(intent);
+        AddSceneActivity.this.finish();
+    }
 
 
     public void onClick(View view){

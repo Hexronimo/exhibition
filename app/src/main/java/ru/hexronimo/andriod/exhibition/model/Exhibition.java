@@ -1,18 +1,10 @@
 package ru.hexronimo.andriod.exhibition.model;
 
-import android.content.Context;
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Random;
 
-// it's not static for future scaling reason: few exhibition may be made and then selected in one app
 public class Exhibition implements Serializable {
     private Map<Integer, Scene> exhibition = new HashMap<>();
     private String name;

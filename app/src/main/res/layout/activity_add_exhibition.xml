@@ -7,12 +7,18 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/mainbg"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linear_for_all"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -53,29 +59,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="right|end"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/exh_save"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:background="@color/mainactivesec"
-                    android:onClick="onClick"
-                    android:text="@string/save"
-                    android:textColor="@color/mainbg"
-                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/exh_add_scene"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
                     android:background="@color/mainactivesec"
                     android:onClick="onClickNewScene"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@string/add_new_scene"
+                    android:text="@string/add_scene"
                     android:textColor="@color/mainbg" />
+
             </LinearLayout>
 
             <TextView
@@ -86,11 +85,70 @@
                 android:text="@string/scenes"
                 android:textStyle="italic" />
 
-            <GridView
-                android:id="@+id/grid_scenes"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/scenes_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainpanel"
+        android:paddingStart="30dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_marginRight="5dp"
+                android:width="50dp"
+                android:background="@drawable/arrow_left"
+                android:onClick="onClick" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:onClick="onClick"
+                android:paddingLeft="5dp"
+                android:text="@string/back"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/exh_add_scene2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:onClick="onClickNewScene"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/delete"
+            android:textColor="@color/mainbg" />
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

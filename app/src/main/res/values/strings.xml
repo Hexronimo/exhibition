@@ -15,9 +15,9 @@
     <string name="name_must_not_be_empty">Name must not be empty</string>
     <string name="you_must_add_the_picture">You must add the picture</string>
     <string name="exhibition">Exhibition</string>
-    <string name="scenes">scenes</string>
+    <string name="scenes">Scenes</string>
     <string name="exhibition_name_can_t_be_empty">Exhibition name can\'t be empty</string>
-    <string name="add_new_scene">Add new scene</string>
+    <string name="add_scene">Add Scene</string>
     <string name="save">Save</string>
     <string name="saved_successfully">Saved successfully!</string>
     <string name="drag_and_drop">Drag a point to wanted position</string>

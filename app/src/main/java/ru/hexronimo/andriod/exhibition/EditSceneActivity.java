@@ -60,13 +60,18 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
     // click button "Create new Point"
     public void onClickAddPoint(View v) {
         // change color of previously selected point to non-active (darken) color
-        if (selectedPoint != null) selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
+        if (selectedPoint != null) { // if scene isn't just opened and some point is already selected
+            selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
 
-        // if added unsaved Point already exists we need to remove it
-        if (-1 == selectedPointId) {
-            RelativeLayout rl = findViewById(R.id.scene_relative_layout);
-            rl.removeView(selectedPoint);
+            // if added unsaved Point already exists we need to remove it
+            if (-1 == selectedPointId) {
+                RelativeLayout rl = findViewById(R.id.scene_relative_layout);
+                rl.removeView(selectedPoint);
+            }
         }
+
+        BottomNavigationView bnv = findViewById(R.id.edit_scene_bottom);
+        bnv.setVisibility(View.GONE);
 
         // create new Point and place it in middle of screen
         Button btn = new Button(getApplicationContext());
@@ -76,19 +81,15 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         btn.setLayoutParams(params);
         btn.setBackgroundResource(R.drawable.pointblue);
         btn.setOnTouchListener(this);
-
-        selectedPointId = -1; // it's -1 for unsaved point (it can be saved only after adding content)
-        selectedPoint = (Button)v;
+        btn.setId(-1);
         RelativeLayout rl = findViewById(R.id.scene_relative_layout);
         rl.addView(btn);
-        Button btn2 = findViewById(R.id.button5);
-        btn2.setText(R.string.add_content);
         Toast.makeText(this, R.string.drag_and_drop, Toast.LENGTH_SHORT).show();
     }
 
     public void onClickAddContent(View v) {
         Intent intent;
-        if (selectedPointId != null) {
+        if (selectedPointId != -1) {
             intent = new Intent(v.getContext(), AddContentActivity.class);
         } else {
             intent = new Intent(v.getContext(), ChooseContentType.class);
@@ -98,7 +99,7 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
         }
         intent.putExtra("exhibition", exhibition);
         intent.putExtra("sceneId", scene.getId());
-        intent.putExtra("pointId", selectedPointId);
+        intent.putExtra("pointId", (selectedPointId < 0) ? null : selectedPointId);
         
         EditSceneActivity.this.finish();
         v.getContext().startActivity(intent);
@@ -107,6 +108,9 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
 
     public void onClickSavePosition(View view){
         //TODO
+        RelativeLayout.LayoutParams par = (RelativeLayout.LayoutParams)selectedPoint.getLayoutParams();
+        exhibition.getScenes().get(scene.getId()).getPoints().get(selectedPointId).setMarginX(par.leftMargin/(float)imageWidth);
+        exhibition.getScenes().get(scene.getId()).getPoints().get(selectedPointId).setMarginY(par.topMargin/(float)imageHeight);
         Storage.getInstance().saveExhibition(exhibition, this);
         Toast.makeText(this, R.string.saved_successfully, Toast.LENGTH_SHORT).show();
     }
@@ -129,20 +133,17 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
                 if (selectedPointId != null) {
                     selectedPoint.setBackgroundResource(R.drawable.pointbluepressed);
                 }
-                v.setBackgroundResource(R.drawable.pointblue);
+                selectedPointId = v.getId();
                 selectedPoint = (Button) v;
+                v.setBackgroundResource(R.drawable.pointblue);
 
-                //if it's already existing saved point
-                if (selectedPointId != null && selectedPointId != -1) {
-                    selectedPointId = v.getId();
-                }
-
-                Button btn2 = findViewById(R.id.button7);
+                Button btn2 = findViewById(R.id.button7); //save position
+                Button btn = findViewById(R.id.button5);
                 if (selectedPointId != -1) {
-                    Button btn = findViewById(R.id.button5);
                     btn.setText(R.string.edit_content);
                     btn2.setVisibility(View.VISIBLE);
                 } else {
+                    btn.setText(R.string.add_content);
                     btn2.setVisibility(View.GONE);
                 }
 
@@ -201,6 +202,13 @@ public class EditSceneActivity extends AppCompatActivity implements View.OnTouch
             // probably adding new Points on every layout related event, even on scrolling
             v.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         }
+    }
+
+    public void onClickClose(View view) {
+        Intent intent = new Intent(view.getContext(), AddExhibitionActivity.class);
+        intent.putExtra("exhibition", exhibition);
+        view.getContext().startActivity(intent);
+        EditSceneActivity.this.finish();
     }
 
 }

@@ -43,6 +43,46 @@
     </HorizontalScrollView>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:gravity="right|top"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:paddingRight="15dp">
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:width="50dp"
+                android:background="@drawable/arrow_left"
+                android:onClick="onClickClose" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onClickClose"
+                android:paddingLeft="5dp"
+                android:text="@string/back"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -53,8 +93,8 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/close_tr"
             android:onClick="onClickAddPoint"
             android:rotation="45"
@@ -73,6 +113,7 @@
             android:textColor="@color/mainbg"
             android:textSize="14sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -109,7 +150,7 @@
                     android:id="@+id/button5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="0"
                     android:background="@color/mainactivesec"
                     android:onClick="onClickAddContent"
@@ -122,6 +163,7 @@
                     android:id="@+id/button7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@color/mainactivesec"
                     android:onClick="onClickSavePosition"
@@ -134,7 +176,7 @@
                     android:id="@+id/button6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@color/mainactivesec"
                     android:onClick="onClickDelete"
