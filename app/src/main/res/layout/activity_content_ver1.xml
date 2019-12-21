@@ -7,30 +7,27 @@
     tools:context=".ContentActivity">
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/mainbg"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:scrollbarStyle="outsideOverlay"
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scrollbarSize="10dp"
-        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
-        app:layout_constraintVertical_bias="0.723">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingTop="30dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="30dp">
 
             <TextView
                 android:id="@+id/content_title"
@@ -48,11 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerInside"
+                android:scaleType="fitStart"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/content_body"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/content_title" />
 
             <TextView

@@ -18,6 +18,6 @@ public interface Content extends Serializable{
     public Uri getAudioPath();
     public Uri getVideoPath();
     public Boolean isAutoPlay();
-    public int getLayout();
+    public ContentLayouts getLayout();
 
 }

@@ -37,6 +37,7 @@ public class PointOnTouchListener implements View.OnTouchListener {
                         intent = new Intent(c, ContentActivity.class);
                     }
                     intent.putExtra("content", point.getContent());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     c.startActivity(intent);
                 }
                 v.setBackgroundResource(R.drawable.pointblue);

@@ -10,11 +10,10 @@ public class Scene implements Serializable {
 
     private Integer id;
     private String imagePath;
-    private int left;
-    private int right;
+    private int left = -1;
+    private int right = -1;
     private String info;
     private String title;
-    private String desc;
 
     private List<Point> points;
 
@@ -24,7 +23,7 @@ public class Scene implements Serializable {
             this.imagePath = image;
         }
         this.title = title;
-        this.desc = desc;
+        this.info = desc;
     }
 
     public void deletePoint(int index){
@@ -92,6 +91,7 @@ public class Scene implements Serializable {
     }
 
     public String getInfo() {
+        info = info.replaceAll("\n", "<br>");
         return info;
     }
 

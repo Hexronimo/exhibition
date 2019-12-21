@@ -5,12 +5,14 @@
     android:id="@+id/linearLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainbg"
     android:orientation="vertical">
 
     <ScrollView
-        android:id="@+id/scrollView4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:scrollbarSize="10dp"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,11 +23,13 @@
             android:id="@+id/linear_for_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
             android:paddingLeft="15dp"
             android:paddingTop="30dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            android:paddingBottom="30dp">
 
             <TextView
                 android:id="@+id/create_exhibition"
@@ -43,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:autofillHints=""
                 android:backgroundTint="@color/mainactivesec"
-                android:ems="10"
                 android:hint="@string/title"
                 android:inputType="textPersonName" />
 
@@ -52,12 +55,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/mainactivesec"
-                android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/text"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:lines="5"
                 android:textColor="@color/maintext"
                 android:textColorHighlight="@color/mainactive"
                 android:textColorHint="@android:color/darker_gray"
@@ -68,9 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:text="or load text from file (.txt)"
-                android:textColor="@color/maintitle"
-                android:textSize="18sp" />
+                android:text="@string/or_load_text_from_file_txt" />
 
             <LinearLayout
                 android:id="@+id/if_load_from_file"
@@ -220,7 +219,25 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@color/mainactivesec"
+                android:onClick="onClick"
+                android:text="@string/save"
+                android:textColor="@color/mainbg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="left|center_vertical"
             android:orientation="horizontal">
@@ -229,6 +246,7 @@
                 android:id="@+id/btn_back"
                 android:layout_width="40dp"
                 android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:width="50dp"
                 android:background="@drawable/arrow_left"
@@ -236,11 +254,10 @@
 
             <TextView
                 android:id="@+id/text_back"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="left"
                 android:onClick="onClickClose"
                 android:paddingLeft="5dp"
                 android:text="@string/back"
@@ -248,15 +265,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/mainactivesec"
-                android:onClick="onClick"
-                android:text="@string/save"
-                android:textColor="@color/mainbg" />
         </LinearLayout>
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

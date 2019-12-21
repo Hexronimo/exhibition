@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import ru.hexronimo.andriod.exhibition.model.Storage;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Intent intent = new Intent(this, AddExhibitionActivity.class);
+        Storage.getInstance(this);
+        Intent intent = new Intent(this, ListExhibitionsActivity.class);
         startActivity(intent);
 
     }

@@ -9,20 +9,17 @@ public class SimpleTextContent implements Content {
 
     private String title;
     private String text;
-    private int layout;
+    private ContentLayouts layout;
 
-    public SimpleTextContent(int layout, String title, String text) {
+    public SimpleTextContent(ContentLayouts layout, String title, String text) {
         this.title = title;
         this.text = text;
         this.layout = layout;
     }
 
-    public SimpleTextContent(int layout) {
-        this.layout = layout;
-    }
-
     @Override
     public String getTextContent() {
+        text = text.replaceAll("\n","<br>");
         return this.text;
     }
     @Override
@@ -38,7 +35,7 @@ public class SimpleTextContent implements Content {
         return this.title;
     }
     @Override
-    public int getLayout() {
+    public ContentLayouts getLayout() {
         return layout;
     }
 

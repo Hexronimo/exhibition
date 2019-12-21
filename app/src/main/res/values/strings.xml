@@ -17,13 +17,14 @@
     <string name="exhibition">Exhibition</string>
     <string name="scenes">Scenes</string>
     <string name="exhibition_name_can_t_be_empty">Exhibition name can\'t be empty</string>
-    <string name="add_scene">Add Scene</string>
+    <string name="add_scene">Add New Scene</string>
     <string name="save">Save</string>
     <string name="saved_successfully">Saved successfully!</string>
+    <string name="deleted_successfully">Deleted successfully!</string>
     <string name="drag_and_drop">Drag a point to wanted position</string>
     <string name="add_point">Add Point</string>
     <string name="add_content">Add content</string>
-    <string name="edit_content">Edit content</string>
+    <string name="edit_content">Edit</string>
     <string name="save_new_position">Re-save position</string>
     <string name="delete">Delete</string>
     <string name="selected_point">Selected Point:</string>
@@ -35,4 +36,11 @@
     <string name="audio">Audio</string>
     <string name="video">Video</string>
     <string name="autoplay">Autoplay   </string>
+    <string name="create_new">Create new</string>
+    <string name="exhibitions">Exhibitions</string>
+    <string name="text_exh_info_part_1">There are %1$d exhibitions in the app directory.</string>
+    <string name="count_scenes">%1$s scene(s)</string>
+    <string name="run">Run</string>
+    <string name="vertical_ellipsis">&#8942;</string>
+    <string name="or_load_text_from_file_txt">or load text from file (.txt)</string>
 </resources>

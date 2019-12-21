@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ru.hexronimo.andriod.exhibition.model.Content;
+import ru.hexronimo.andriod.exhibition.model.ContentLayouts;
 
 public class ContentActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent i = getIntent();
         content = (Content)i.getSerializableExtra("content");
-        setContentView(content.getLayout());
+        setContentView(ContentLayouts.getLayoutId(content.getLayout()));
 
         // change screen size
         Display display = getWindowManager().getDefaultDisplay();
@@ -33,30 +34,30 @@ public class ContentActivity extends AppCompatActivity {
         display.getSize(size);
         int width = size.x;
 
-        // setting main container width
+        int globalwidth;
+        if (width > 2000) globalwidth = width/3*2;
+        else if (width < 1000) globalwidth = width;
+        else globalwidth = width/4*3;
+
         LinearLayout linearLayout = findViewById(R.id.linear_for_all);
-        if (linearLayout != null) {
-            int globalwidth;
-            if (width > 2000) globalwidth = width/3*2;
-            else if (width < 1000) globalwidth = width;
-            else globalwidth = width/4*3;
-            ViewGroup.LayoutParams params = linearLayout.getLayoutParams();
-            params.width = globalwidth;
-            linearLayout.setLayoutParams(params);
-        }
+        ViewGroup.LayoutParams params = linearLayout.getLayoutParams();
+        params.width = globalwidth;
 
 
-            TextView title = findViewById(R.id.content_title);
-            TextView body = findViewById(R.id.content_body);
-            ImageView imageView = findViewById(R.id.content_image);
+        TextView title = findViewById(R.id.content_title);
+        TextView body = findViewById(R.id.content_body);
+        ImageView imageView = findViewById(R.id.content_image);
 
         // if it's not only text
-        if (content.getImagePath() != null) imageView.setVisibility(View.VISIBLE);
+        if (content.getImagePath() != null){
+            imageView.setVisibility(View.VISIBLE);
+        }
 
         // if is't layout with small image and text at right, we just make image 1/3 of screen
-        if (content.getImagePath() != null && content.getLayout() == R.layout.activity_content_ver2) {
-            ViewGroup.LayoutParams params = imageView.getLayoutParams();
-            params.width = width/3;
+        if (content.getImagePath() != null && content.getLayout() == ContentLayouts.SMALL_IMAGE_WITH_TEXT) {
+            imageView.setVisibility(View.VISIBLE);
+            ViewGroup.LayoutParams paramsimg = imageView.getLayoutParams();
+            paramsimg.width = globalwidth/3;
         }
 
         if (content.getTitle() != null) {

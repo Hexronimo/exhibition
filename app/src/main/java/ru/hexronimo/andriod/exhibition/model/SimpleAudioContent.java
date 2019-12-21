@@ -10,9 +10,9 @@ public class SimpleAudioContent implements Content {
     private String imgPath;
     private String mediaPath;
     private boolean autoPlay;
-    private int layout;
+    private ContentLayouts layout;
 
-    public SimpleAudioContent(int layout, Uri media, Uri image, boolean autoplay, String title, String text){
+    public SimpleAudioContent(ContentLayouts layout, Uri media, Uri image, boolean autoplay, String title, String text){
         this.mediaPath = media.toString();
         if (image != null && !"".equals(image.toString().trim())) this.imgPath = image.toString();
         this.autoPlay = autoplay;
@@ -24,6 +24,7 @@ public class SimpleAudioContent implements Content {
 
     @Override
     public String getTextContent() {
+        text = text.replaceAll("\n","<br>");
         return this.text;
     }
 
@@ -65,7 +66,7 @@ public class SimpleAudioContent implements Content {
     }
 
     @Override
-    public int getLayout() {
+    public ContentLayouts getLayout() {
         return layout;
     }
 

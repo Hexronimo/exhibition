@@ -1,34 +1,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     >
     <!-- A CardView that contains a TextView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/mainbg">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:clipChildren="false"
+        android:focusable="auto"
+        android:textColor="@color/mainbg"
+        app:contentPadding="5dp">
 
-        <ImageView
-            android:id="@+id/card_image"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:padding="5dp" />
-
-        <TextView
-            android:id="@+id/card_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/card_l"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="155dp"
-            android:padding="5dp"
-            android:textColor="@color/maintext"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/card_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/card_name" />
+
+
+            <TextView
+                android:id="@+id/card_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/maintext"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/card_image"
+                app:layout_constraintRight_toLeftOf="@id/card_button_menu"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/count_scenes_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/maintext"
+                app:layout_constraintStart_toEndOf="@id/card_image"
+                app:layout_constraintTop_toBottomOf="@+id/card_name" />
+
+            <Button
+                android:id="@+id/card_button_menu"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:scrollbarStyle="insideInset"
+                android:text="@string/vertical_ellipsis"
+                android:textColor="@color/maintext"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/bar_with_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_image">
+
+                <Button
+                    android:id="@+id/exh_run_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/mainactivesec"
+                    android:text="@string/run"
+                    android:textColor="@color/mainbg"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/exh_edit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/mainactivesec"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/edit_content"
+                    android:textColor="@color/mainbg" />
+
+                <Button
+                    android:id="@+id/card_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:onClick="onClickDelete"
+                    android:text="@string/delete"
+                    android:textColor="@color/mainbg" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 </LinearLayout>

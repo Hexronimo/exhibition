@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ru.hexronimo.andriod.exhibition.model.Content;
+import ru.hexronimo.andriod.exhibition.model.ContentLayouts;
 
 public class ContentAudioActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,7 +39,7 @@ public class ContentAudioActivity extends AppCompatActivity implements View.OnCl
 
         Intent i = getIntent();
         content = (Content) i.getSerializableExtra("content");
-        setContentView(content.getLayout());
+        setContentView(ContentLayouts.getLayoutId(content.getLayout()));
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();

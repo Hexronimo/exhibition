@@ -9,9 +9,9 @@ public class SimpleVideoContent implements Content {
     private String text;
     private String mediaPath;
     private boolean autoplay = false;
-    private int layout;
+    private ContentLayouts layout;
 
-    public SimpleVideoContent(int layout, Uri uri, boolean autoplay, String title, String text){
+    public SimpleVideoContent(ContentLayouts layout, Uri uri, boolean autoplay, String title, String text){
         if (uri != null && !"".equals(uri)) this.mediaPath = uri.toString();
         this.autoplay = autoplay;
         this.layout = layout;
@@ -21,6 +21,7 @@ public class SimpleVideoContent implements Content {
 
     @Override
     public String getTextContent() {
+        text = text.replaceAll("\n","<br>");
         return this.text;
     }
 
@@ -54,7 +55,7 @@ public class SimpleVideoContent implements Content {
     }
 
     @Override
-    public int getLayout() {
+    public ContentLayouts getLayout() {
         return layout;
     }
 

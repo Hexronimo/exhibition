@@ -1,6 +1,7 @@
 package ru.hexronimo.andriod.exhibition.model;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -14,8 +15,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
 
@@ -26,52 +34,142 @@ public class Storage {
     private static String pathScenes;
     private static String pathContents;
     private static String mainPath;
+    private static Context context;
 
-    private Storage(){
+    private Storage(Context context){
         //load dir paths from properties
         Properties property = new Properties();
-        FileInputStream fis;
+        InputStream fis;
         try {
-            fis = new FileInputStream("src/main/java/ru/hexronimo/android/exhibition/model/config.properties");
+            AssetManager assetManager = context.getAssets();
+            fis = assetManager.open("config.properties");
             property.load(fis);
             mainPath = property.getProperty("mainpath");
+            System.out.println("Main path is: " + mainPath);
             fis.close();
-        } catch(IOException e){}
+        } catch(IOException e){
+            e.printStackTrace();
+            System.out.println("Can't read files in App folder");
+        }
         pathExhibition = "exhibition";
         pathScenes = "scenes";
         pathContents = "contents";
     }
 
     // make it singleton
-    public static synchronized Storage getInstance() {
+    public static Storage getInstance(Context c) {
         if (instance == null) {
-            instance = new Storage();
+            instance = new Storage(c);
+            context = c;
         }
         return instance;
     }
 
+    public static Map<String, String[]> getAllExhibitions() {
+
+        Map<String, String[]> map = new HashMap<>();File dir = new File(context.getExternalFilesDir(null), instance.mainPath + "/" + instance.pathExhibition );
+        System.out.println(dir.toString());
+        List<File> files = new ArrayList<>();
+        try {
+            files.addAll(Arrays.asList(dir.listFiles()));
+        } catch(NullPointerException e){}
+
+        System.out.println("There are " + files.size() + " files (probably exhibitions). Reading start..." );
+
+            for (File f: files) {
+                FileInputStream fis = null;
+                ObjectInputStream ois = null;
+                try {
+                    fis = new FileInputStream(f);
+                    ois = new ObjectInputStream(fis);
+                    try {
+                        Exhibition e = (Exhibition) ois.readObject();
+                        String[] params = new String[3];
+                        params[0] = e.getName();
+                        if (e.getScenes().size() > 0) params[1] = e.getLeft().getImagePath().toString();
+                        if (e.getScenes() != null) params[2] = e.getScenes().size() + "";
+                        else params[2] = "0";
+
+                        map.put(e.getId(), params);
+                    } catch (ClassNotFoundException e) {
+                        System.out.println("Error when reading object.");
+                        continue;
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Error when reading file " + f.getName());
+                    continue;
+                } finally {
+                    if (fis != null) {
+                        try {
+                            ois.close();
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return map;
+    }
+
     // save Exhibition object
-    public String saveExhibition(Exhibition exhibition, Context context){
+    public static String saveExhibition(Exhibition exhibition){
         File file;
         String id = null;
         if (null == exhibition.getId()) {
             do {
                 id = generateRandomName();
-                file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + id + ".ser");
+                file = new File(context.getExternalFilesDir(null), instance.mainPath + "/" + instance.pathExhibition + "/exh_" + id + ".ser");
             } while (file.exists());
             exhibition.setId(id);
-            file.mkdirs();
+            file.getParentFile().mkdirs();
         } else {
-            file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhibition.getId() + ".ser");
+            id = exhibition.getId();
+            file = new File(context.getExternalFilesDir(null), instance.mainPath + "/" + instance.pathExhibition + "/exh_" + exhibition.getId() + ".ser");
         }
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
-                objectOutputStream.writeObject(exhibition);
-                objectOutputStream.close();
-                fos.close();
-            } catch(IOException e){}
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
+            objectOutputStream.writeObject(exhibition);
+            objectOutputStream.close();
+            fos.close();
+        } catch(IOException e){}
+
         return id;
+    }
+
+    public static Exhibition getExhibition(String id) {
+        Exhibition exhibition = null;
+        File file = new File (context.getExternalFilesDir(null), instance.mainPath + "/" + instance.pathExhibition + "/exh_" + id + ".ser" );
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(file);
+            ois = new ObjectInputStream(fis);
+            try {
+                exhibition = (Exhibition) ois.readObject();
+            } catch(ClassNotFoundException e){}
+
+        } catch (IOException e) {
+
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return exhibition;
+    }
+
+    public static void deleteExhibition(String id){
+        File file = new File (context.getExternalFilesDir(null), instance.mainPath + "/" + instance.pathExhibition + "/exh_" + id + ".ser" );
+        if (file.exists()) file.delete();
     }
 
 
@@ -85,7 +183,7 @@ public class Storage {
                 file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/sc_" + sceneId + "/" + id + ".ser");
             } while (file.exists());
             point.setId(id);
-            file.mkdirs();
+            file.getParentFile().mkdirs();
         } else {
             file = new File(context.getExternalFilesDir(null), mainPath + "/" + pathExhibition + "/exh_" + exhId + "/scenes/sc_" + sceneId +"/" + point.getId() + ".ser");
         }
@@ -138,7 +236,7 @@ public class Storage {
         }
     }
 
-    private String generateRandomName(){
+    private static  String generateRandomName(){
         final String alphabet = "0123456789abcdefgjklmnopqstvuwxyz";
         final int N = alphabet.length();
 

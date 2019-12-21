@@ -7,10 +7,10 @@ public class SimpleImageContent implements Content {
     private String title;
     private String text;
     private String imagePath;
-    private int layout;
+    private ContentLayouts layout;
 
-    public SimpleImageContent(int layout, Uri uri, String title, String text){
-        if (uri != null && !"".equals(uri.toString().trim())) this.imagePath = uri.toString();
+    public SimpleImageContent(ContentLayouts layout, Uri uri, String title, String text){
+        if (uri != null && uri.toString().trim().length() != 0) this.imagePath = uri.toString();
         this.layout = layout;
         this.title = title;
         this.text = text;
@@ -18,6 +18,7 @@ public class SimpleImageContent implements Content {
 
     @Override
     public String getTextContent() {
+        text = text.replaceAll("\n","<br>");
         return this.text;
     }
     @Override
@@ -42,7 +43,7 @@ public class SimpleImageContent implements Content {
     }
 
     @Override
-    public int getLayout() {
+    public ContentLayouts getLayout() {
         return layout;
     }
 

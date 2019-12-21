@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ru.hexronimo.andriod.exhibition.model.ContentLayouts;
+
 public class ChooseContentType extends AppCompatActivity {
 
     @Override
@@ -86,21 +88,21 @@ public class ChooseContentType extends AppCompatActivity {
             intent.putExtras(getIntent());
 
             switch(view.getId()){
-                case 0 : intent.putExtra("content_layout", R.layout.activity_content_ver1);
+                case 0 : intent.putExtra("content_layout", ContentLayouts.TEXT);
                     break;
-                case 1: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+                case 1: intent.putExtra("content_layout", ContentLayouts.POETRY);
                     break;
-                case 2: intent.putExtra("content_layout", R.layout.activity_content_ver3);
+                case 2: intent.putExtra("content_layout", ContentLayouts.IMAGE_WITH_TEXT);
                     break;
-                case 3: intent.putExtra("content_layout", R.layout.activity_content_ver2);
+                case 3: intent.putExtra("content_layout", ContentLayouts.SMALL_IMAGE_WITH_TEXT);
                     break;
-                case 4: intent.putExtra("content_layout", R.layout.activity_content_ver4);
+                case 4: intent.putExtra("content_layout", ContentLayouts.FULL_SCREEN_IMAGE_WITH_TEXT);
                     break;
-                case 5: intent.putExtra("content_layout", R.layout.activity_content_audio);
+                case 5: intent.putExtra("content_layout", ContentLayouts.IMAGE_AS_BG_WITH_TEXT);
                     break;
-                case 6: intent.putExtra("content_layout", R.layout.activity_content_video);
+                case 6: intent.putExtra("content_layout", ContentLayouts.AUDIO);
                     break;
-                default: intent.putExtra("content_layout", R.layout.activity_content_ver1);
+                default: intent.putExtra("content_layout", ContentLayouts.VIDEO);
 
             }
             mContext.startActivity(intent);

@@ -2,6 +2,7 @@ package ru.hexronimo.andriod.exhibition;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +31,15 @@ import ru.hexronimo.andriod.exhibition.model.Storage;
 import static java.security.AccessController.getContext;
 
 public class AddSceneActivity extends AppCompatActivity {
-    private static final int READ_REQUEST_CODE = 6;
+    private static final int READ_REQUEST_CODE_IMG = 2;
+    private static final int READ_REQUEST_CODE_TXT = 1;
     private Uri image = null;
     private Exhibition exhibition;
     private List<Scene> scenes;
+    private Scene scene;
     private int left;
     private int right;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +47,23 @@ public class AddSceneActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         exhibition = (Exhibition) i.getSerializableExtra("exhibition");
-
+        scene = (Scene) i.getSerializableExtra("scene");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_add_scene);
 
         scenes = new ArrayList<>();
         if (null != exhibition.getScenes()) scenes.addAll(exhibition.getScenes().values());
+        if (scene != null) {
+            image = scene.getImagePath();
+            int iToRemove = 0;
+            for (Scene s : scenes){
+                System.out.println(scene.getId() + "      -     " + s.getId());
+                if (scene.getId().equals(s.getId())) break;
+                iToRemove++;
+            }
+            scenes.remove(iToRemove);
+        }
+
 
         // for Spinners
         ArrayList<String> scenesNames = new ArrayList<>();
@@ -56,6 +74,16 @@ public class AddSceneActivity extends AppCompatActivity {
                 scenesNames.add(s.getTitle());
             }
         }
+        //fill form if it's editing existing scene
+        if (scene != null) {
+            TextView name = findViewById(R.id.scene_name);
+            name.setText(scene.getTitle());
+            TextView desc = findViewById(R.id.scene_desc);
+            desc.setText(scene.getInfo());
+            ImageView scenePic = findViewById(R.id.scene_pic);
+            scenePic.setImageURI(scene.getImagePath());
+        }
+
 
         Spinner spinnerLeft = findViewById(R.id.spinner_left);
         Spinner spinnerRight = findViewById(R.id.spinner_right);
@@ -63,6 +91,16 @@ public class AddSceneActivity extends AppCompatActivity {
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerLeft.setAdapter(spinnerArrayAdapter);
         spinnerRight.setAdapter(spinnerArrayAdapter);
+        if (scene != null) {
+            if (scene.getLeft() != -1) {
+                int spinnerPosition = spinnerArrayAdapter.getPosition(exhibition.getScenes().get(scene.getLeft()).getTitle());
+                spinnerLeft.setSelection(spinnerPosition);
+            }
+            if (scene.getRight() != -1){
+                int spinnerPosition = spinnerArrayAdapter.getPosition(exhibition.getScenes().get(scene.getRight()).getTitle());
+                spinnerRight.setSelection(spinnerPosition);
+            }
+        }
 
         spinnerLeft.setOnItemSelectedListener(new SpinnerActivity());
         spinnerRight.setOnItemSelectedListener(new SpinnerActivity());
@@ -97,6 +135,13 @@ public class AddSceneActivity extends AppCompatActivity {
         AddSceneActivity.this.finish();
     }
 
+    public void onClickLoadText(View v) {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/*");
+        startActivityForResult(intent, READ_REQUEST_CODE_TXT);
+    }
+
 
     public void onClick(View view){
         //it was copied from Android sdk site, I left comments to not forget how to use it later
@@ -115,8 +160,44 @@ public class AddSceneActivity extends AppCompatActivity {
         // it would be "*/*".
         intent.setType("image/*");
 
-        startActivityForResult(intent, READ_REQUEST_CODE);
+        startActivityForResult(intent, READ_REQUEST_CODE_IMG);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==READ_REQUEST_CODE_TXT && resultCode == Activity.RESULT_OK) {
+            Uri uri = data.getData();
+            TextView textView = findViewById(R.id.scene_desc);
+            InputStream is = null;
+            try {
+                is = getContentResolver().openInputStream(uri);
+                StringBuilder dataText = new StringBuilder();
+                while(is.available() > 0) {
+                    dataText.append((char)is.read());
+                }
+                textView.setText(dataText.toString());
+            } catch(IOException e) {
+
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        if(requestCode==READ_REQUEST_CODE_IMG && resultCode == Activity.RESULT_OK) {
+            image = data.getData();
+            //System.out.println(image.toString());
+            ImageView imageView = findViewById(R.id.scene_pic);
+            imageView.setImageURI(image);
+        }
     }
 
     public void onClickSubmit(View view){
@@ -134,12 +215,26 @@ public class AddSceneActivity extends AppCompatActivity {
         } else validation1.setVisibility(View.GONE);
         TextView descTV = findViewById(R.id.scene_desc);
         String desc = descTV.getText().toString();
-        Scene scene = new Scene(image.toString(), title, desc);
+
+        if (scene == null) {
+            scene = new Scene(image.toString(), title, desc);
+        } else {
+            scene.setInfo(desc);
+            scene.setTitle(title);
+            scene.setImagePath(image);
+        }
 
         scene.setLeft(left);
         scene.setRight(right);
         int sceneId  = exhibition.addScene(scene);
-        Storage.getInstance().saveExhibition(exhibition, view.getContext());
+
+        if (left != -1) {
+            exhibition.getScenes().get(left).setRight(sceneId);
+        }
+        if (right != -1) {
+            exhibition.getScenes().get(right).setLeft(sceneId);
+        }
+        Storage.saveExhibition(exhibition);
         Toast.makeText(this, R.string.saved_successfully, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(view.getContext(), EditSceneActivity.class);
         intent.putExtra("exhibition", exhibition);
@@ -147,19 +242,6 @@ public class AddSceneActivity extends AppCompatActivity {
         view.getContext().startActivity(intent);
         AddSceneActivity.this.finish();
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            image = data.getData();
-            //System.out.println(image.toString());
-            ImageView imageView = findViewById(R.id.scene_pic);
-            imageView.setImageURI(image);
-        }
-    }
-
 
     public class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
@@ -180,8 +262,12 @@ public class AddSceneActivity extends AppCompatActivity {
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
-            if (parent.getId() == R.id.spinner_right) right = -1;
-            if (parent.getId() == R.id.spinner_left) left = -1;
+                if (parent.getId() == R.id.spinner_right) {
+                    if (scene != null) right = scene.getRight(); else right = -1;
+                }
+                if (parent.getId() == R.id.spinner_left) {
+                    if (scene != null) left = scene.getLeft(); else left = -1;
+                }
         }
     }
 

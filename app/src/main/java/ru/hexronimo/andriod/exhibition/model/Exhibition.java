@@ -43,6 +43,14 @@ public class Exhibition implements Serializable {
         return n;
     }
 
+    public void deleteScene (int id){
+        Integer key = null;
+        for(Map.Entry<Integer,Scene> scene: exhibition.entrySet()){
+            if (id == scene.getValue().getId()) key = scene.getKey();
+        }
+        exhibition.remove(key);
+    }
+
     public Map<Integer, Scene> getScenes() {
         return exhibition;
     }
