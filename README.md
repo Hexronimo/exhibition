@@ -7,7 +7,20 @@ This is not only for exhibitions in the literal sense of the word (not only muse
 You're absolutelly free to use it as you want, make any changes and add issues, but don't forget it's my first Android app, so its code may be a total mess.
 
 ## How to use and what can be done with it 
-![my_image_2](https://raw.githubusercontent.com/Hexronimo/exhibition/master/Demo.jpg)
+* Build with Android Studio and install apk to the Android device
+* Create new Exhibition give it some name (end-point user will not see its name)
+* Add fisrt Scene, give it a name, background picture and description (if needed)
+* Add one Point to Scene and give it some content (choose layout and fill texts)
+* Add more Points 
+* When finished with this Scene press Back and add more Scenes to this Exhbition
+* You can edit existing scenes by pressing three dots button and then Edit button
+* When you done, try to run your Exhibition-project, go back to Exhibition list, press three dots button, then Run
+* That's it!
+
+Some screenshots of process:
+![my_image_2](https://raw.githubusercontent.com/Hexronimo/exhibition/master/Demo2.jpg)
+
+All Exhibitions you made will be saved to Android/data/ru.hexronimo.exhibition/files/ExhibitionApp as .ser serializable Java objects. But content (images, audio, video) just linked, so if you move or delete any media-file in the filesystem an app may crash. 
 
 ## Idea (pre-development)
 I have few old cheap tablets at my current workplace and think it would be nice to give them second life. So I wanted to make exibition viewer for them, something very simple and universal, that any non-technical person can use later and supply with a new content.
