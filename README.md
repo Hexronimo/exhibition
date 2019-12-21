@@ -6,7 +6,8 @@ This is not only for exhibitions in the literal sense of the word (not only muse
 
 You're absolutelly free to use it as you want, make any changes and add issues, but don't forget it's my first Android app, so its code may be a total mess.
 
-## Currently in development 
+## How to use and what can be done with it 
+![my_image_2](https://raw.githubusercontent.com/Hexronimo/exhibition/master/Demo.jpg)
 
 ## Idea (pre-development)
 I have few old cheap tablets at my current workplace and think it would be nice to give them second life. So I wanted to make exibition viewer for them, something very simple and universal, that any non-technical person can use later and supply with a new content.
