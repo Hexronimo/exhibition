@@ -1,15 +1,14 @@
 # Android App for making and viewing virtual exhibitions
-This application made with Java in Android Studio, it's my first Android project.
-With this app you can create "exhibitions": full-screen images with points on them, tap one of points and you will see information (few different layouts can be used), which can include rich text, images, audio or video.
+This application made with Java in Android Studio, it's my first Android project. With this app you can create "exhibitions": full-screen images with points on them, tap one of the points and you will see information (few different layouts can be used), which can include rich text, images, audio or video.
 
-This is not only for exhibitions in the literal sense of the word (not only museum kind), you can make family album, show your goods, make some map - many different stuff, anything with fullscreen image at the base.
+This is not only for exhibitions in the literal sense of the word (not only museum kind), but you can also make the family album, show your goods, make some map - much different stuff, anything with the fullscreen image at the base.
 
-You're absolutelly free to use it as you want, make any changes and add issues, but don't forget it's my first Android app, so its code may be a total mess.
+You're absolutely free to use it as you want, make any changes and add issues, but don't forget it's my first Android app, so its code may be a total mess.
 
 ## How to use and what can be done with it 
 * Build with Android Studio and install apk to the Android device
 * Create new Exhibition and give it some name (end-point user will not see its name, so it'just for you)
-* Add first Scene, give it a name, background picture and description (if needed)
+* Add the first Scene, give it a name, background picture and description (if needed)
 * Add one Point to the Scene and give it some content (choose layout and fill text fields)
 * Add more Points 
 * When finished with this Scene press Back and add more Scenes to the current Exhibition
